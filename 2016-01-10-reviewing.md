@@ -5,10 +5,7 @@ layout: post
 ---
 
 
-I cheated a little in the hopes of winning at New Year's
-Resolutions 2016. Last fall, I started to look for good habits I was
-already developing, and tried to shape them into something
-constructive.
+I cheated a little in the hopes of winning at New Year's Resolutions 2016. Last fall, I started to look for good habits I was already developing, and tried to shape them into something constructive.
 
 One of those habits was reading higher quality content, and more of
 it. I used to spend too much time lurking on Reddit. I replaced most

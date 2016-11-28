@@ -138,7 +138,7 @@ imagine it as something like this:
 
 ![equally spaced samples]({{ site.url }}/assets/2016-11-07-pixels.png)
 
-There's only one highlighted point per row, and the point might be
+There's only one highlighted point per column, and the point might be
 rounded up or down (I think this is quantization). Then I can
 represent this whole wave form in a list of numbers, like
 `[4, 1, 0, 2, 6, 7, 4, 1, 0, 2, 6, 7, 4, 1, 0, 2]`
@@ -232,8 +232,12 @@ And it kind of looked okay! The light blinked along with the sound!
 And I learned a tiny, tiny bit about audio file formats.
 
 
-# See Also
+## See Also
 * [PyAudio](http://people.csail.mit.edu/hubert/pyaudio/) and [PortAudio](http://www.portaudio.com)
 * Spoilers about my project can be found on my [github](https://github.com/jessstringham)
 * This is a more legit: [3D Spectrum Analyser](https://www.youtube.com/watch?v=Vn39txtVIHc)
 * Speaking of codecs, here's a cool post about [H.264](https://sidbala.com/h-264-is-magic/)
+
+#### Edits
+
+* 2016-11-27: changed 'one highlighted point per row' to 'one highlighted point per column'.

@@ -121,7 +121,7 @@ the LED.
 
 _Artist's interpretation of sine wave:_
 
-![sine wave]({{ site.url }}/assets/2016-11-07-squiggle.png)
+![sine wave](/assets/2016-11-07-squiggle.png)
 
 WAV files use a bitstream to represent a waveform. A bistream is, uh,
 a stream of bits, like `01010010`. WAV uses a strategy to represent
@@ -136,7 +136,7 @@ One way to represent audio signals is
 where you sample the value of the amplitude at uniform intervals. I
 imagine it as something like this:
 
-![equally spaced samples]({{ site.url }}/assets/2016-11-07-pixels.png)
+![equally spaced samples](/assets/2016-11-07-pixels.png)
 
 There's only one highlighted point per column, and the point might be
 rounded up or down (I think this is quantization). Then I can
@@ -216,7 +216,7 @@ of a second of sound.
 
 So I should be able to graph it!
 
-![Graph of robot voice sound wave]({{ site.url }}/assets/2016-11-07-real.png)
+![Graph of robot voice sound wave](/assets/2016-11-07-real.png)
 
 Neat! 
 

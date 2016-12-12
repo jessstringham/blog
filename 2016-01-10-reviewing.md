@@ -87,5 +87,5 @@ I have a few more posts about implementation coming soon. In the meantime:
  - [Anki](http://ankisrs.net) is the app I'm using. Spoilers, it's
    great for some use cases, but it's not particularly great for this
    one.
- - [Janky Method](http://www.jackkinsella.ie/2011/12/05/janki-method.html) for using Anki to learn programming.
+ - [Janky Method](https://www.jackkinsella.ie/articles/janki-method) for using Anki to learn programming.
  - Coding Horror has the Pragmatic Programmer's tips in ["A Pragmatic Quick Reference"](http://blog.codinghorror.com/a-pragmatic-quick-reference/)

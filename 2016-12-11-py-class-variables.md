@@ -16,7 +16,7 @@ _This post is inspired and kinda stolen from
 [a question on StackOverflow](http://stackoverflow.com/questions/68645/static-class-variables-in-python),
 especially millerdev's answer and Dubslow's comment. The topic is
 authoritatively covered by a chapter in
-[The Python Tutorial](https://docs.python.org/2/tutorial/classes.html). I
+[The Python Tutorial](https://docs.python.org/3/tutorial/classes.html). I
 totally should reread the tutorial._
 
 _Code examples were tested in the Python 3.5 and Python 2.7 REPL._
@@ -73,7 +73,7 @@ special at all.
 #### Words
 
 From the
-[Python tutorial](https://docs.python.org/2/tutorial/classes.html#class-and-instance-variables),
+[Python tutorial](https://docs.python.org/3/tutorial/classes.html#class-and-instance-variables),
 I'm talking about the difference between class and instance
 variables. `total_seen` is a _class variable_ and is associated with
 `Vegetable`. `name` is an _instance variable_ and is associated with

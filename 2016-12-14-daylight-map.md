@@ -46,4 +46,4 @@ when I visited Tromsø and the sun didn't come up.
 
 ### Project technical highlights
 
-Coming soon!
+ - [I used gratuitous Emacs and org-mode]({% post_url 2016-12-16-travel-org %})

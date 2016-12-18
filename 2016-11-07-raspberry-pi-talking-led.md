@@ -29,15 +29,16 @@ my light-blinking program.
 
 ## Note to self, the tee command is cool
 
-My first idea involved `tee`, a nifty unix command that I never
+My first idea involved `tee`, a nifty UNIX command that I never
 remember when I need it, but do remember when I don't.
 
 `tee` can be used to split a command's output into two outputs.  In
 this context, I could use `tee` to send `espeak`'s data to both `aplay`
 and my visualizer.
 
-But since I can compute the visuals faster than the audio plays, the
-audio and visuals would be out of sync. Uncool!
+But since I can compute the visuals faster than the audio plays, and
+`tee` would send the file all at once to both `aplay` and the
+visualizer, the audio and visuals would be out of sync. Uncool!
 
 ## PyAudio
 
@@ -86,9 +87,10 @@ numpy array.
 
 {% highlight python %}
 data = wf.readframes(CHUNK)
-
+...
 def do_something_with_the_light(data):
     array = np.fromstring(data, dtype=width)
+    ...
 {% endhighlight %}
 
 And now I had numbers!
@@ -107,7 +109,7 @@ arguments, _format_ and _rate_.
 stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),  # ???
                 channels=wf.getnchannels(),  # mono or stereo
                 rate=wf.getframerate(),  # ???
-                output=True)  # this will play sound
+                output=True)
 {% endhighlight %}
 
 
@@ -123,7 +125,7 @@ _Artist's interpretation of sine wave:_
 
 ![sine wave](/assets/2016-11-07-squiggle.png)
 
-WAV files use a bitstream to represent a waveform. A bistream is, uh,
+WAV files use a bitstream to represent a waveform. A bitstream is, uh,
 a stream of bits, like `01010010`. WAV uses a strategy to represent
 the wiggly waves in bits, and I want to turn it back into a waveform
 in order to access its amplitude.
@@ -132,7 +134,7 @@ in order to access its amplitude.
 #### Part 1: Frames, a sample of an amplitude
 
 One way to represent audio signals is
-[pulse-control modulation](https://en.wikipedia.org/wiki/Pulse-code_modulation),
+[pulse-code modulation](https://en.wikipedia.org/wiki/Pulse-code_modulation),
 where you sample the value of the amplitude at uniform intervals. I
 imagine it as something like this:
 
@@ -140,38 +142,40 @@ imagine it as something like this:
 
 There's only one highlighted point per column, and the point might be
 rounded up or down (I think this is quantization). Then I can
-represent this whole wave form in a list of numbers, like
+represent this whole waveform in a list of numbers, like
 `[4, 1, 0, 2, 6, 7, 4, 1, 0, 2, 6, 7, 4, 1, 0, 2]`
 
 In Python's `wave`, each amplitude sample, like `4`, is called a frame. 
 
-In the code, `wf.readframes(1024)` gives me the amplitude of from
+In the code, `wf.readframes(1024)` gives me the amplitude of
 1,024 samples.  For my project, I want to average the amplitudes of
-this sample to determine the brightness. So close!
+these samples to determine the brightness. So close!
 
 First though, I need to make sense of the raw data of
 `wf.readframes(1024)`.
 
 ### Part 2: Sample width, how each sample is represented
 
-
-Pulse-control modulation WAV represents waves as a list of numbers in
+Pulse-code modulation WAV represents waves as a list of numbers in
 a stream of bits. The amplitude samples above looked like
-`[4, 1, 0, 2, 6, 7, ...]`. Since it's stored as bits, it's more like,
-`100 001 000 010 110 111`. and I'd ditch the spaces and get something
-like `100001000010110111`. Then, when you read the file, I'd just need
-to tell you that each number is represented by 3 bits.
+`[4, 1, 0, 2, 6, 7, ...]`. 
 
-`wf.readrames(1024)` gives a blob of data representing 1024 frames. I
-need to know what kind of number to turn it into as I fill in the
-numpy array. Should I read `b0000111100001111` as `b00001111`,
-`b00001111`, or `b0000111100001111`? In `wave`, `wf.getsampwidth()`
-tells me how many bytes represent each sample.
+Let's say I want to send you these numbers as a bitstream. First, I'd
+change `[4, 1, 0, 2, 6, 7, ...]` to bits, like `100 001 000 010 110 111`, and I'd
+ditch the spaces and get something like `100001000010110111`. 
+
+When you start getting the stream of bits, `100001000010110111`, you'd want to
+know if you should read it as
+`100001000 010110111` or
+`100 001 000 010 110 111` or something else.
+So I'd tell you ahead of time that each number
+is represented by 3 bits. Similarly in `wave`, `wf.getsampwidth()` tells me the sample width in bytes.
 
 To be honest, I still don't completely understand this part, because
-I'm not sure what those 2 bytes represented. Are they signed,
+I'm not sure what those bytes represented. Are they signed,
 unsigned, or a float? Is this noted in the file, or in the
-specification? Instead I peaked at how PyAudio did things.
+specification? Instead of looking into it too much, I peaked at how
+PyAudio did it.
 
 PyAudio also needs to know this information to build its stream. In
 the demo code, it uses `p.get_format_from_width(wf.getsampwidth())` to
@@ -194,7 +198,7 @@ At this point, I actually know enough to make my light blink. But for
 completeness, let's talk about rate.
 
 In Part 1, I got a list of amplitude measurements across 1,024
-points. WAV doesn't store the x-values of all these points. Instead it
+points. WAV doesn't store the x-values of all these points. Instead, it
 notes the number of samples per second, or how wide those uniform
 intervals are.
 
@@ -233,11 +237,7 @@ And I learned a tiny, tiny bit about audio file formats.
 
 
 ## See Also
+* [The code](https://github.com/jessstringham/raspberrypi/blob/master/talking_led.py)
 * [PyAudio](http://people.csail.mit.edu/hubert/pyaudio/) and [PortAudio](http://www.portaudio.com)
-* Spoilers about my project can be found on my [github](https://github.com/jessstringham)
 * This is a more legit: [3D Spectrum Analyser](https://www.youtube.com/watch?v=Vn39txtVIHc)
 * Speaking of codecs, here's a cool post about [H.264](https://sidbala.com/h-264-is-magic/)
-
-#### Edits
-
-* 2016-11-27: changed 'one highlighted point per row' to 'one highlighted point per column'.

@@ -12,7 +12,7 @@ features, and how I used them to throw together a hacktastical
 application that draws squiggly lines.
 
 
-![daylight](/assets/2016-12-14-daylight.png)
+![daylight](/assets/2016-12-21-daylight.png)
 
 _See [Part 1]({% post_url 2016-12-14-daylight-map %}) for an overview
 of the project, and more squiggly lines._

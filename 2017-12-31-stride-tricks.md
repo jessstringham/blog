@@ -10,7 +10,7 @@ networks for deep learning practical, I needed to implement somewhat efficient c
  `numpy.stride_tricks` and `numpy.einsum` in the process and wanted to share it!
 
  - **Part 1** is an introduction to the problem and how I used `numpy.lib.stride_tricks.as_strided`.
- - Part 2 is about `numpy.einsum`.
+ - [**Part 2**]({% post_url 2018-01-01-einsum %}) is about `numpy.einsum`.
 
 ## Introduction
 
@@ -43,7 +43,7 @@ for x in range(inputs.shape[0] - kernel.shape[0] + 1):
                 feature_map += inputs[x][y][i][j] * kernel[i][j]
 {% endhighlight %}
 
-There are a couple details on how kernels and inputs are flipped or padded (convolutions vs cross-correlations; forward propagation vs backward propagation; dealing with edges), but I'll assume inputs and kernel are already set up.
+There are a couple details on how kernels and inputs are flipped or padded (convolutions vs cross-correlations; forward propagation vs back propagation; dealing with edges), but I'll assume inputs and kernel are already set up.
 
 ### Kernels
 
@@ -154,7 +154,7 @@ For fun, here's what the filters looked like:
 
 ![Strided](/assets/2017-12-31-bad-filters.png)
 
-### Citations and stuff
+## See Also
 
  - [Code for the class I'm in](https://github.com/CSTR-Edinburgh/mlpractical)
  - <a name="emnist">EMNIST</a>: Cohen, G., Afshar, S., Tapson, J., & van Schaik, A. (2017). EMNIST: an extension of MNIST to handwritten letters. Retrieved from http://arxiv.org/abs/1702.05373

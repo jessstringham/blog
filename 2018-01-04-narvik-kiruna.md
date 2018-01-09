@@ -5,9 +5,10 @@ layout: post
 location: Oregon
 ---
 
+![Climbing down a slope above Norwegian fjords.](/assets/2018-01-04-narvik.jpg)
+
 In Summer 2017, I visited Narvik, Norway and Kiruna, Sweden, two cities north of the Arctic Circle. Here are some pictures.
 
-![Climbing down a slope above Norwegian fjords.](/assets/2018-01-04-narvik.jpg)
 We climbed around Fagernesfjellet, a mushy hill above Narvik that's a ski slope in the winter.
 
 

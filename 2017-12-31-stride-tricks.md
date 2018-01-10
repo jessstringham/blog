@@ -65,7 +65,7 @@ For a larger image, convolutions are done by sliding the kernel over the image t
 
 A tricky part is telling `numpy` to slide the kernel across the inputs.
 One approach could be using the nested for-loops above, and classmates did have luck using for-loops with [Numba](https://numba.pydata.org).
-For-loops are usually a red flag when using vectors, so I searched for another way and came across `as_strided`.
+I wanted to see if I could do it with `numpy` and came across `as_strided`.
 
 `as_strided` tricks numpy into looking at the array data in memory in a new way.
 
@@ -137,7 +137,7 @@ expanded_input = as_strided(
 {% endhighlight %}
 
 
-Next time, I'll show how to use this to compute the feature map.
+[Next time, I'll show how to use this to compute the feature map.]({% post_url 2018-01-01-einsum %})
 
 
 ### Final note: "This function has to be used with extreme care"

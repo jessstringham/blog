@@ -4,6 +4,7 @@ tags: [ML]
 layout: post
 mathjax: true
 location: Oregon
+learning_alert: True
 ---
 
 ![sigmoid function with x's marking samples](/assets/2018-01-08-sigmoid.png)
@@ -21,9 +22,11 @@ Later I want to show how to combine this with observations to get a posterior on
 
 One way to do this is to start with the underlying function, find the function value at some inputs, add some noise (usually Gaussian), and call these our observations. Then apply the machine learning techniques to those observations, and compare its guess of the function to the real function.
 
-$$y = f(x) + \epsilon$$
+$$y = f(\textbf x) + v$$
 
-This matches super well with how textbooks and courses start talking about machine learning (also experiments and statistics!). They start by assuming that observations are a combination of an underlying function and noise, and the goal is to find the underlying function.
+
+(I use bold, like \\(\textbf x\\), to indicate it's a vector. So \\( f \\) takes a vector and returns a scalar.)
+This matches super well with how textbooks and courses start talking about machine learning. (Also with experiments and statistics!) They start by assuming that observations are a combination of an underlying function and noise, and the goal is to find the underlying function.
 
 
 ### Other ways
@@ -103,7 +106,7 @@ This last one is what I'll use for the rest of this post.
 
 ### Function
 
-Next, I can define the underlying function \\(f\\).
+Next, I can define the underlying function \\(f\\). This one will take in a scalar and return a scalar.
 
 {% highlight python %}
 def f1(x):
@@ -128,13 +131,13 @@ def f2(x):
 
 To add some noise,
 
-$$epsilon \sim \mathcal N(0, \sigma_y)$$
+$$v \sim \mathcal N(0, \sigma_y)$$
 
-we can shift \\(N\\) numbers from `np.random.randn`. Heads up, `randn` is totally different than `rand`. `randn` is normally distributed around 0 with a variance of 1, while [`rand`](https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.rand.html) is uniformly distributed over [0, 1).
+I can shift \\(N\\) numbers from `np.random.randn`. (Heads up, `randn` is totally different than `rand`. [`randn`](https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.randn.html) is normally distributed around 0 with a variance of 1, while [`rand`](https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.rand.html) is uniformly distributed over [0, 1).)
 
 To do this, I can use
 
-$$\mathcal N(0, \sigma_y) = \sigma_y * \mathcal N(0, 1)$$
+$$\mathcal N(0, \sigma_y) = \sigma_y \mathcal N(0, 1)$$
 
 or in code:
 
@@ -206,7 +209,7 @@ plt.legend()
 plt.show()
 {% endhighlight %}
 
-
+### [Next]({% post_url 2018-01-10-bayesian-linreg-plots %})
 
 ## See Also
 

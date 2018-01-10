@@ -4,11 +4,12 @@ tags: [ML]
 layout: post
 mathjax: true
 location: Oregon
+learning_alert: True
 ---
 
-Now I have [priors on the weights]({% post_url 2018-01-03-bayesian-linreg %}) and [observations]({% post_url 2018-01-08-bayesian-linreg-sample %}). In this post, I'll show a formula for finding the posterior on the weights, and show one plot using it. The next post will have more plots.
+Now I have [priors on the weights]({% post_url 2018-01-03-bayesian-linreg %}) and [observations]({% post_url 2018-01-08-bayesian-linreg-sample %}). In this post, I'll show a formula for finding the posterior on the weights, and show one plot using it. The [next post]({% post_url 2018-01-10-bayesian-linreg-plots %}) will have more plots.
 
-Our goal is to find the distribution of the weights given the data. This is given by
+My goal is to find the distribution of the weights given the data. This is given by
 
 $$p(\mathbf w | \mathcal D) = \frac{p(\mathcal D | \mathbf w)p(\mathbf w)}{p(\mathcal D)}.$$
 
@@ -70,7 +71,8 @@ Phi_X_in = np.hstack((
 ))
 {% endhighlight %}
 
-\\(\textbf y\\) is also from [the last post]({% post_url 2018-01-08-bayesian-linreg-sample %}). The code used there was
+\\(\textbf y\\) is also from [the last post]({% post_url 2018-01-08-bayesian-linreg-sample %}). It's the vector containing all the observations.
+ The code used there was
 
 {% highlight python %}
 def f(x):
@@ -142,7 +144,6 @@ noise = true_sigma_y * np.random.randn(X_in.shape[0], 1)
 y = Phi_X_in @ true_w + noise
 
 # Compute the posterior
-
 sigma_y = true_sigma_y  # I'm going to guess the noise correctly
 
 V0_inv = np.linalg.inv(V_0)
@@ -155,7 +156,7 @@ Sweet! Now it seems like after doing all that code and math, I should be rewarde
 
 ## Plotting
 
-In this post, I'll just show one graph. `w_n` are guesses of the weights, so I can plot it. I can also compare it to the weights from
+In this post, I'll just show one graph. `w_n` is the mean guess of the weights, so I can plot that function. I can also compare it to the weights from
 least squares and the true weights.
 
 {% highlight python %}
@@ -192,6 +193,8 @@ true_w = np.array([[100, 0.3]]).T
 
 ![Graph showing three lines, two near each other going through the points, and one closer to 0.](/assets/2018-01-09-mean-far-away.png)
 
+
+### [Next]({% post_url 2018-01-10-bayesian-linreg-plots %})
 
 ## See Also
 

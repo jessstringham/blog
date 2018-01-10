@@ -3,6 +3,7 @@ title: 'Bayesian Linear Regression part 1: plotting samples from the weight prio
 tags: [ML]
 layout: post
 mathjax: true
+learning_alert: True
 ---
 
 I took Iain Murray's Machine Learning and Pattern Recognition course this fall. It was fun and challenging.
@@ -73,14 +74,18 @@ Adjusting `sigma_b` changes the most likely y-intercept. A small `sigma_b` makes
 `sigma_w = 1.0`
 ![big w variance](/assets/2018-01-03-big-w.png)
 
-And by setting the \\(\mu\\), it
+And by setting the \\(\mu\\), it makes the slopes and intercepts usually near that value.
 
 `mu_w = 0.5`
 ![big w variance](/assets/2018-01-03-big-muw.png)
 
 ### What's next?
 
-Posteriors on the weights, and then making predictions with it!
+
+[Observations]({% post_url 2018-01-08-bayesian-linreg-sample %}), [posteriors on the weights]({% post_url 2018-01-09-bayesian-linreg-posterior %}), and then [plotting predictions based on it!]({% post_url 2018-01-10-bayesian-linreg-plots %})
+
+
+### [Next]({% post_url 2018-01-08-bayesian-linreg-sample %})
 
 ## See Also
 

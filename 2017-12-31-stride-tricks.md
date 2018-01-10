@@ -4,6 +4,7 @@ tags: [ML]
 layout: post
 ---
 
+![Strided](/assets/2017-12-31-strided.gif)
 
 For an assignment on convolutional neural
 networks for deep learning practical, I needed to implement somewhat efficient convolutions. I learned about

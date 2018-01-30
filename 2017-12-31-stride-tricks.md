@@ -29,7 +29,7 @@ Convolutional neural nets are pretty cool, but that's all I'll say about convolu
 
 ### Convolutions
 
-The code I'm going to do in this series basically does the following:
+The code I'm going to do in this series basically does the following ([fyi: if you saw this earlier, I've edited it](https://github.com/jessstringham/blog/commits/master/2017-12-31-stride-tricks.md)):
 
 {% highlight python %}
 feature_map = np.zeros(
@@ -41,7 +41,7 @@ for x in range(inputs.shape[0] - kernel.shape[0] + 1):
     for y in range(inputs.shape[1] - kernel.shape[1] + 1):
         for i in range(kernel.shape[0]):
             for j in range(kernel.shape[1]):
-                feature_map += inputs[x][y][i][j] * kernel[i][j]
+                feature_map[x][y] += inputs[x + i][y + j] * kernel[i][j]
 {% endhighlight %}
 
 There are a couple details on how kernels and inputs are flipped or padded (convolutions vs cross-correlations; forward propagation vs back propagation; dealing with edges), but I'll assume inputs and kernel are already set up.
@@ -145,7 +145,7 @@ expanded_input = as_strided(
 As [the `as_strided` documentation](https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.lib.stride_tricks.as_strided.html) says, "This function has to be used with extreme care".
 I felt fine experimenting with it, because the code was not for production, and I had an idea of memory layouts. But I still messed up and it was interesting.
 
-After implementing convolutions, I decided to use `as_strided` to broadcast the bias term. However I forgot to update a variable, and it expanded a tiny test array into a much-too-large matrix. That resulted in it pulling garbage numbers out of other parts of memory! It would randomly add 1e300 to my convolutions!
+After implementing convolutions, I decided to use `as_strided` to broadcast the bias term. However I forgot to update a variable, and it expanded a tiny test array into a much-too-large matrix. That resulted in it pulling garbage numbers out of other parts of memory! It would randomly add things like \(10^300\) to my convolutions!
 
 One thing I'm learning in machine learning is that when things are horribly broken, they can still seem to work but with a tiny bit lower performance than expected. This was one of those cases.
 
@@ -157,5 +157,8 @@ For fun, here's what the filters looked like:
 
 ## See Also
 
+ - [**Part 2**]({% post_url 2018-01-01-einsum %}) is about `numpy.einsum`.
  - [Code for the class I'm in](https://github.com/CSTR-Edinburgh/mlpractical)
  - <a name="emnist">EMNIST</a>: Cohen, G., Afshar, S., Tapson, J., & van Schaik, A. (2017). EMNIST: an extension of MNIST to handwritten letters. Retrieved from http://arxiv.org/abs/1702.05373
+ - More about CNNs: [cs231n](http://cs231n.github.io/convolutional-networks/)
+ - [Cool demo of kernels](http://setosa.io/ev/image-kernels/)

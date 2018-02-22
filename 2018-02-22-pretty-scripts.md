@@ -49,6 +49,6 @@ For the deep learning experiments, I used it in my recent experiment list to mar
 
 
 ## See Also
- - [`curses`](https://docs.python.org/3/library/curses.html#module-curses)
- - [TensorBoard](https://www.tensorflow.org/programmers_guide/summaries_and_tensorboard) might be the right way to do this. But you know, it's easier to reach for a tool I know instead of learning a new one.
+ - Or you could use [`curses`](https://docs.python.org/3/library/curses.html#module-curses)
+ - [TensorBoard](https://www.tensorflow.org/programmers_guide/summaries_and_tensorboard) might be the right way to do this.
  - Because I'm posting about Unicode: [The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/)

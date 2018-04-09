@@ -1,5 +1,5 @@
 ---
-title: Tiled images with numpy
+title: Pasta machine processing images with numpy
 tags: [numpy]
 layout: post
 ---

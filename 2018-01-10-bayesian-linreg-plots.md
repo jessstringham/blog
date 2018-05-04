@@ -110,11 +110,11 @@ In the first plot, I'm sampling from the distribution of the *weights*. I hear s
 
 The second plot shows the distribution of the *prediction*. This is related to the distribution of the weights (equation from [the course notes](http://www.inf.ed.ac.uk/teaching/courses/mlpr/2017/notes/w7a_bayesian_inference_prediction.html#predictions-for-bayesian-linear-regression)):
 
-$$p(y|\mathbf x, \mathcal D) = \int p(y | \mathbf x, \mathbf w) p(\mathbf w|\mathcal D) \, \mathbf w$$
+$$p(y|\mathbf x, \mathcal D) = \int p(y | \mathbf x, \mathbf w) p(\mathbf w|\mathcal D) \, d \mathbf w$$
 
 If I look at a single weight sampled from the weight's posterior, I can plot
 \\( p\(y|\mathbf x, \mathbf w\) \\)
-which for each \\(\mathbf x\\) is \\(\mathcal N(y; \mathbf w^{\top} \mathbf x, \sigma_y)\\). If I plot it, I get:
+which for each \\(\mathbf x\\) is \\(\mathcal N(y; \mathbf w^{\top} \mathbf x, \sigma_y^2)\\). If I plot it, I get:
 
 ![Graph showing x's for observations, a line for one sample of the weights, and shaded area for uncertainty.](/assets/2018-01-10-sample-with-error.png)
 

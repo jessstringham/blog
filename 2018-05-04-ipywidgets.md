@@ -6,6 +6,8 @@ mathjax: true
 location: Edinburgh
 ---
 
+[This post comes with a notebook.](https://github.com/jessstringham/blog/blob/master/notebooks/2018-05-04-ipywidgets-for-learning-logistic-sigmoid-and-bayes-classifiers.ipynb)
+
 One of my favorite tricks in Jupyter notebooks is using [`ipywidgets.interact`](http://ipywidgets.readthedocs.io/en/latest/examples/Using%20Interact.html) to explore an equation or [dataset]({% post_url 2018-05-03-smallnorb %}). Two equations I used it on were the logistic sigmoid and Bayes classifiers decision boundaries. (I also used `ipywidgets` to explore the dataset [smallNORB]({% post_url 2018-05-03-smallnorb %}).)
 
 For example, to understand the logistic sigmoid function a little better, I used this:

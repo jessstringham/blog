@@ -28,7 +28,7 @@ These are what my notes from [Digitizing notes as a learning tool]({% post_url 2
 
 On notebook save, another `post_save_hook` adds flashcard-notes to a little `sqlite` database. I use another Jupyter notebook to load cards from the database. I display flashcard buttons using `ipywidgets` and display the markdown using `IPython.display.Markdown`.
 
-<img src='/asserts/2018-05-06-flashcard-page.gif' alt='Example of flashcards'>
+<img src='/assets/2018-05-06-flashcard-page.gif' alt='Example of flashcards'>
 
 * I don't use answer-difficulty information yet, but the idea is that I can use it for some fun [spaced repetition](https://en.wikipedia.org/wiki/Spaced_repetition) stuff!
 

@@ -17,4 +17,4 @@ I fought with `struct` and endianness, and finally found a few lines of Python c
 <img src="/assets/2018-05-03-rotate.gif" width="300" alt="Cycling through images of rotating cars from the SmallNORB dataset.">
 
 
-[Maybe check it out!](https://github.com/jessstringham/blog/blob/master/notebooks/2018-05-03-SmallNORB.ipynb).
+[Maybe check it out!](https://github.com/jessstringham/blog/blob/master/notebooks/2018-05-03-SmallNORB.ipynb)

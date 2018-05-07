@@ -4,6 +4,8 @@ tags: [jupyter]
 layout: post
 ---
 
+[This post is also a Jupyter notebook!](https://github.com/jessstringham/blog/blob/master/notebooks/2018-05-07-reading-jupyter-notebooks-into-Python.ipynb)
+
 For my [digitized notes]({% post_url 2018-05-06-notebook-tour %}) project, I wrote a few scripts that read Markdown cells from Jupyter notebook files. Specifically, I read a notebook's non-empty Markdown cells and used them for my search index and flashcard database. Reading Jupyter notebooks as data is pretty easy! Below I'll read the non-empty markdown cells.
 
 

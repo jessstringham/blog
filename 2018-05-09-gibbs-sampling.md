@@ -1,5 +1,5 @@
 ---
-title: Gibbs Sampling
+title: Gibbs Sampling in Python
 tags: [jupyter]
 layout: post
 mathjax: true

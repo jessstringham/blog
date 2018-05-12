@@ -1,11 +1,13 @@
 ---
 title: 'Bayesian Linear Regression part 2: demo data'
-tags: [ML]
+tags: [jupyter]
 layout: post
 mathjax: true
-location: Oregon
-learning_alert: True
 ---
+
+[This post is also a Jupyter notebook!](https://github.com/jessstringham/blog/tree/master/notebooks/2018-01-08-bayesian-linreg-sample.ipynb)
+
+
 
 ![sigmoid function with x's marking samples](/assets/2018-01-08-sigmoid.png)
 
@@ -35,15 +37,25 @@ tbh, I don't know all of the other ways to do this!
 
 I know one way to get sample data would be to use a real dataset, like one from [scikit-learn](http://scikit-learn.org/stable/datasets/index.html) or [Kaggle](http://kaggle.com). I imagine these could make it a little harder to see what a machine learning technique does.
 
-
 ## Code
 
 I'm going to use numpy and matplotlib.
 
+
+
 {% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
+
+
+# helper functions you can skip over :D
+SAVE = True
+def maybe_save_plot(filename):
+    if SAVE:
+        plt.tight_layout()
+        plt.savefig('images/' + filename, bbox_inches="tight")
 {% endhighlight %}
+
 
 
 
@@ -53,67 +65,102 @@ I'll start by choosing some input values between -1 and 1.
 
 I could choose equally-spaced values with `np.linspace`:
 
+
+
 {% highlight python %}
->>> np.linspace(-1, 1, 11)
-array([-1. , -0.8, -0.6, -0.4, -0.2,  0. ,  0.2,  0.4,  0.6,  0.8,  1. ])
+np.linspace(-1, 1, 11)
 {% endhighlight %}
+
+
+
+
+    array([-1. , -0.8, -0.6, -0.4, -0.2,  0. ,  0.2,  0.4,  0.6,  0.8,  1. ])
 
 I could also select random, uniformly distributed points using `np.random.rand`:
 
-{% highlight python %}
->>> 2 * np.random.rand(11) - 1
-array([ 0.47838778, -0.50688054, -0.04976984,  0.43536156,  0.7769026 ,
-        0.10516738, -0.26796222,  0.35670553, -0.34742237,  0.01485432,
-        0.60064077])
-{% endhighlight %}
 
-Both of these give me a 1D array of size \\(N=11\\). Depending on what I'm going to do next, I might need to make it a 2D array of size \\(N \times 1\\). Here's one way to do it using `[:, np.newaxis]` or `[:, None]`
+
 
 {% highlight python %}
->>> np.linspace(-1, 1, 11)[:, np.newaxis]  # or [:, None]
-array([[-1. ],
-       [-0.8],
-       [-0.6],
-       [-0.4],
-       [-0.2],
-       [ 0. ],
-       [ 0.2],
-       [ 0.4],
-       [ 0.6],
-       [ 0.8],
-       [ 1. ]])
+2 * np.random.rand(11) - 1
 {% endhighlight %}
 
-or I can ask `np.random.rand` for that shape:
+
+
+
+    array([ 0.47838778, -0.50688054, -0.04976984,  0.43536156,  0.7769026 ,
+            0.10516738, -0.26796222,  0.35670553, -0.34742237,  0.01485432,
+            0.60064077])
+            
+
+Both of these give me a 1D array of size \\(N=11\\). Depending on what I'm going to do next, I might need to make it a 2D array of size \\(N \times 1\\). Here's one way to do it using `[:, np.newaxis]` or `[:, None]`            
+
+
 
 {% highlight python %}
->>> x = 2 * np.random.rand(11, 1) - 1
-array([[ 0.88124014],
-       [ 0.6336226 ],
-       [-0.13216228],
-       [-0.59228322],
-       [ 0.87360859],
-       [-0.96744198],
-       [ 0.0409076 ],
-       [ 0.99409816],
-       [-0.11102826],
-       [ 0.36738782],
-       [ 0.552644  ]])
+np.linspace(-1, 1, 11)[:, np.newaxis]  # or [:, None]
 {% endhighlight %}
+
+
+
+
+    array([[-1. ],
+           [-0.8],
+           [-0.6],
+           [-0.4],
+           [-0.2],
+           [ 0. ],
+           [ 0.2],
+           [ 0.4],
+           [ 0.6],
+           [ 0.8],
+           [ 1. ]])
+    
+or I can ask `np.random.rand` for that shape:    
+
+
+
+{% highlight python %}
+x = 2 * np.random.rand(11, 1) - 1
+{% endhighlight %}
+
+
+
+
+    array([[ 0.88124014],
+           [ 0.6336226 ],
+           [-0.13216228],
+           [-0.59228322],
+           [ 0.87360859],
+           [-0.96744198],
+           [ 0.0409076 ],
+           [ 0.99409816],
+           [-0.11102826],
+           [ 0.36738782],
+           [ 0.552644  ]])
+           
 
 This last one is what I'll use for the rest of this post.
 
 
 ### Function
 
-Next, I can define the underlying function \\(f\\). This one will take in a scalar and return a scalar.
+Next, I can define the underlying function \\(f\\). This one will take in a scalar and return a scalar.           
+
+
 
 {% highlight python %}
 def f1(x):
     return 0.3 * x + 2
 {% endhighlight %}
 
+
+
+
 While I'm here, I think it's a good exercise to try to do this using vectors. In this case, `f1` could be rewritten is
+
+
+
 
 {% highlight python %}
 true_w = np.array([[2, 0.3]]).T
@@ -126,6 +173,10 @@ def f2(x):
 
     return x_bias @ true_w
 {% endhighlight %}
+
+
+
+
 
 ### Noise
 
@@ -141,25 +192,39 @@ $$\mathcal N(0, \sigma_y) = \sigma_y \mathcal N(0, 1)$$
 
 or in code:
 
+
+
+
 {% highlight python %}
 true_sigma_y = 0.01
 
 noise = true_sigma_y * np.random.randn(x.shape[0], 1)
 {% endhighlight %}
 
+
+
+
+
 ### Result
 
 And finally to plot this
 
+
+
 {% highlight python %}
+full_x = np.arange(-1, 1, 0.01)
+
 plt.figure(figsize=(12, 8))
-plt.plot(full_x, f2(full_x), '--', alpha=0.5, label='true function')
+plt.plot(full_x, f2(full_x[:, None]), '--', alpha=0.5, label='true function')
 plt.plot(x, f2(x) + noise, 'xk', markersize='12', label='observations')
 plt.legend()
+maybe_save_plot('2018-01-08-linear-sample-example')  # linear function with x's marking samples
 plt.show()
 {% endhighlight %}
 
 ![linear function with x's marking samples](/assets/2018-01-08-linear-sample-example.png)
+
+
 
 The light blue line shows the true function. The black x's mark the sample observations.
 
@@ -171,6 +236,8 @@ The image at the top of this post is of observations I generated for a Gaussian 
 Gaussian Processes are cool because they can fit a lot of functions. So I made and plotted
 a funnier function that can show off Gaussian Processes.
 I do it by using a linear combination of logistic sigmoids.
+
+
 
 {% highlight python %}
 # I just use regular Python for this. I'm still learning numpy tricks :)
@@ -206,8 +273,13 @@ plt.figure(figsize=(12, 8))
 plt.plot(full_x, f3(full_x), '--', alpha=0.5, label='true function')
 plt.plot(x, y, 'xk', markersize='12', label='observations')
 plt.legend()
+maybe_save_plot('2018-01-08-sigmoid')
 plt.show()
 {% endhighlight %}
+
+![](/assets/2018-01-08-sigmoid.png)
+
+
 
 ### [Next]({% post_url 2018-01-10-bayesian-linreg-plots %})
 

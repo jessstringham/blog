@@ -1,11 +1,14 @@
 ---
 title: 'Bayesian Linear Regression part 3: Posterior'
-tags: [ML]
+tags: [jupyter]
 layout: post
 mathjax: true
-location: Oregon
-learning_alert: True
 ---
+
+[This post is also a Jupyter notebook!](https://github.com/jessstringham/blog/tree/master/notebooks/2018-01-09-bayesian-linreg-posterior.ipynb)
+
+
+
 
 Now I have [priors on the weights]({% post_url 2018-01-03-bayesian-linreg %}) and [observations]({% post_url 2018-01-08-bayesian-linreg-sample %}). In this post, I'll show a formula for finding the posterior on the weights, and show one plot using it. The [next post]({% post_url 2018-01-10-bayesian-linreg-plots %}) will have more plots.
 
@@ -25,16 +28,30 @@ $$\begin{aligned}
 
 I'll convert this to code. Heads up, I know this isn't the most efficient way to do this. I'll try to update this when I find more tricks.
 
+
+
+
 {% highlight python %}
+# imports!
 import numpy as np
 import matplotlib.pyplot as plt
+
+# helper functions you can skip over :D
+SAVE = True
+def maybe_save_plot(filename):
+    if SAVE:
+        plt.tight_layout()
+        plt.savefig('images/' + filename, bbox_inches="tight")
 {% endhighlight %}
+
 
 
 
 ### Variables
 
 \\( w_0 \\) and \\( V_0 \\) are the prior's mean and variance, which I defined back in [priors on the weights]({% post_url 2018-01-03-bayesian-linreg %}). The code for that was
+
+
 
 {% highlight python %}
 mu_w = 0
@@ -47,34 +64,57 @@ w_0 = np.hstack([mu_b, mu_w])
 V_0 = np.diag([sigma_b, sigma_w])**2
 {% endhighlight %}
 
+
+
+
 \\(V_0^{-1}\\) is the inverse of the prior's variance. It shows up a few times, so I'll
 compute it once. It doesn't look like I can use `np.linalg.solve` on it, so I'll use
 `np.linalg.inv`:
+
 
 
 {% highlight python %}
 V0_inv = np.linalg.inv(V_0)
 {% endhighlight %}
 
+
+
+
 \\(\Phi\\) is the augmented input matrix. In this case, it's the `x` values of the [observations]({% post_url 2018-01-08-bayesian-linreg-sample %}), with the column of 1s I add to deal with the bias term. So, from [the last post]({% post_url 2018-01-08-bayesian-linreg-sample %}), I had `x` as
+
+
 
 {% highlight python %}
 X_in = 2 * np.random.rand(21, 1) - 1
 {% endhighlight %}
 
+
+
+
+
 Then \\(\Phi\\) is
+
+
+
 
 {% highlight python %}
 Phi_X_in = np.hstack((
-    np.ones((x.shape[0], 1)),  # pad with 1s for the bias term
-    x
+    np.ones((X_in.shape[0], 1)),  # pad with 1s for the bias term
+    X_in
 ))
 {% endhighlight %}
+
+
+
 
 \\(\textbf y\\) is also from [the last post]({% post_url 2018-01-08-bayesian-linreg-sample %}). It's the vector containing all the observations.
  The code used there was
 
+
+
 {% highlight python %}
+true_w = np.array([[2, 0.3]]).T
+
 def f(x):
     x_bias = np.hstack((
         np.ones((x.shape[0], 1)),  # pad with 1s for the bias term
@@ -86,22 +126,40 @@ def f(x):
 true_sigma_y = 0.1
 noise = true_sigma_y * np.random.randn(X_in.shape[0], 1)
 
-y = f(x) + noise
+y = f(X_in) + noise
 {% endhighlight %}
 
+
+
+
+
 But since I already have \\(\Phi\\), I'll skip the function and just use
+
+
 
 {% highlight python %}
 y = Phi_X_in @ true_w + noise
 {% endhighlight %}
 
+
+
+
+
 \\(\sigma_y\\) is my guess of `true_sigma_y`. On a real dataset, I might not know the true \\(\sigma_y\\), so I keep separate `true_sigma_y` and `sigma_y` constants that I can use to explore what happens if my guess is off. I'll start with imagining I know it
+
+
 
 {% highlight python %}
 sigma_y = true_sigma_y
 {% endhighlight %}
 
+
+
+
+
 The rest is a matter of copying the equation over correctly and hoping I got it right!
+
+
 
 {% highlight python %}
 V_n = sigma_y**2 * np.linalg.inv(sigma_y**2 * V0_inv + (Phi_X_in.T @ Phi_X_in))
@@ -109,9 +167,13 @@ w_n = V_n @ V0_inv @ w_0 + 1 / (sigma_y**2) * V_n @ Phi_X_in.T @ y
 {% endhighlight %}
 
 
+
+
 ### Complete code
 
 Putting it all together, I get
+
+
 
 {% highlight python %}
 import numpy as np
@@ -152,12 +214,16 @@ w_n = V_n @ V0_inv @ w_0 + 1 / (sigma_y**2) * V_n @ Phi_X_in.T @ y
 {% endhighlight %}
 
 
+
+
 Sweet! Now it seems like after doing all that code and math, I should be rewarded with pretty graphs!
 
 ## Plotting
 
 In this post, I'll just show one graph. `w_n` is the mean guess of the weights, so I can plot that function. I can also compare it to the weights from
 least squares and the true weights.
+
+
 
 {% highlight python %}
 grid_size = 0.01
@@ -177,19 +243,27 @@ plt.plot(x_grid, Phi_X @ true_w, '--b', alpha=0.5, label='true weights')
 plt.plot(x_grid, Phi_X @ w_n, label='Bayesian')
 plt.plot(x_grid, Phi_X @ lsqsq_w, label='lstsq')
 plt.legend()
-plt.ylim([1.75, 2.25])
+plt.ylim([1.5, 2.5])
+maybe_save_plot('2018-01-09-mean')  # Graph showing three lines, all near each other, going through the points.
 plt.show()
 {% endhighlight %}
 
 ![Graph showing three lines, all near each other, going through the points.](/assets/2018-01-09-mean.png)
 
+
+
 These are pretty similar! They are different at least in part due to the prior, which are centered at 0, meaning that it expects most lines to go through the origin and have a slope of 0.
 
 This is more obvious if I make the true bias is very far away from 0. Then the Bayesian fit might not even go through the points! This might remind you of the effects of regularization, which makes extreme values less likely, at the cost of sometimes having poorer fits.
 
+
+
 {% highlight python %}
 true_w = np.array([[100, 0.3]]).T
 {% endhighlight %}
+
+
+
 
 ![Graph showing three lines, two near each other going through the points, and one closer to 0.](/assets/2018-01-09-mean-far-away.png)
 

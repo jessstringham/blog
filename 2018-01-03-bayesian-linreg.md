@@ -5,7 +5,8 @@ layout: post
 mathjax: true
 ---
 
-[This post is also a Jupyter notebook!](https://github.com/jessstringham/blog/tree/master/notebooks/2018-01-03-bayesian-linear-regression-plots.ipynb)
+[This post is also a Jupyter notebook!](https://github.com/jessstringham/blog/tree/master/notebooks/2018-01-03-bayesian-linreg.ipynb)
+
 
 
 I took Iain Murray's Machine Learning and Pattern Recognition course this fall. It was fun and challenging.
@@ -26,6 +27,7 @@ To find those parameter distributions in Bayesian land, I'd start with a prior d
 In this post, I'll just show how to sample a couple \\(w\\) and \\(b\\) from a 2D Gaussian distribution and plot them.
 
 
+
 {% highlight python %}
 # imports!
 import numpy as np
@@ -41,9 +43,11 @@ def maybe_save_plot(filename):
 
 
 
+
 ## Sampling from the prior
 
 Here's some code that samples from a prior distribution on parameters.
+
 
 
 {% highlight python %}
@@ -82,9 +86,11 @@ plt.show()
 
 
 
+
 ### Examples
 
 Adjusting `sigma_b` changes the most likely y-intercept. A small `sigma_b` makes more points go through the origin (top), and a large `sigma_b` makes points spread out more.
+
 
 
 {% highlight python %}
@@ -105,7 +111,9 @@ def sample_prior_weights(x_grid, mu_w=0, mu_b=0, sigma_w=0.2, sigma_b=0.2):
 
 
 
+
 `sigma_w = 0.2`
+
 
 
 {% highlight python %}
@@ -113,13 +121,15 @@ y = sample_prior_weights(x_grid, sigma_w=0.2)
 
 plt.figure(figsize=(16, 8))
 plt.plot(x_grid, y, '-m', alpha=.2)
-maybe_save_plot('2018-01-03-small-w')
+maybe_save_plot('2018-01-03-small-w')  # small w variance
 plt.show()
 {% endhighlight %}
 
-![](/assets/2018-01-03-small-w.png)
+![small w variance](/assets/2018-01-03-small-w.png)
+
 
 `sigma_w = 1.0`
+
 
 
 {% highlight python %}
@@ -133,9 +143,11 @@ plt.show()
 
 ![](/assets/2018-01-03-big-w.png)
 
+
 And by setting the \\(\mu\\), it makes the slopes and intercepts usually near that value.
 
 `mu_w = 0.5`
+
 
 
 {% highlight python %}
@@ -143,11 +155,12 @@ y = sample_prior_weights(x_grid, mu_w=0.5)
 
 plt.figure(figsize=(16, 8))
 plt.plot(x_grid, y, '-m', alpha=.2)
-maybe_save_plot('2018-01-03-big-muw')
+maybe_save_plot('2018-01-03-big-muw')  # big w variance
 plt.show()
 {% endhighlight %}
 
-![](/assets/2018-01-03-big-muw.png)
+![big w variance](/assets/2018-01-03-big-muw.png)
+
 
 ## What's next?
 

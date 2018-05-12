@@ -1,5 +1,5 @@
 ---
-title: Gibbs Sampling in Python
+title: 'Gibbs Sampling in Python'
 tags: [jupyter]
 layout: post
 mathjax: true
@@ -8,11 +8,13 @@ mathjax: true
 [This post is also a Jupyter notebook!](https://github.com/jessstringham/blog/tree/master/notebooks/2018-05-09-gibbs-sampling.ipynb)
 
 
+
 This is another post from my [PMR](http://www.inf.ed.ac.uk/teaching/courses/pmr/17-18/) exam review. In this post, I'll implement Gibbs Sampling.
 
 Gibbs sampling is useful for sampling from high-dimensional distributions where single-variable conditional distributions are known. 
 
 For example, say it's too expensive to sample from \\( p(x_0, x_1, x_2, ..., x_d) \\). With Gibbs sampling, I initialize all variables to arbitrary values. Then while taking each sample, I also iterate through the dimensions and replace its value with a sample from the univariate conditional distribution. For example I'd update \\( x_1 \\) using \\( p(x_1 \mid x_0, x_2, ..., x_d) \\), which is easy to sample over because it's only one dimension.
+
 
 
 {% highlight python %}
@@ -30,6 +32,7 @@ def maybe_save_plot(filename):
 
 
 
+
 ## Data generation
 
 My plan is to sample a bunch of points using Gibbs sampling and compare them to points sampled from the true distribution. In this section, I'll define the true joint distribution. 
@@ -37,6 +40,7 @@ My plan is to sample a bunch of points using Gibbs sampling and compare them to 
 I'm going to use my favorite 2D Gaussian. This will be 
 
 $$p(a, b) = \mathcal N\left(\left[\begin{array}{c} a \\ b \end{array}\right]; \left[\begin{array}{c}\mu_a \\ \mu_b\end{array}\right], \left[\begin{array}{cc}\sigma_a & cov(a, b) \\ cov(a, b) & \sigma_b\end{array}\right]\right) = \mathcal N\left(\left[\begin{array}{c}a \\ b\end{array}\right]; \left[\begin{array}{c}0 \\ 0\end{array}\right], \left[\begin{array}{cc}1 & 0.5 \\ 0.5 & 1\end{array}\right]\right).$$
+
 
 
 {% highlight python %}
@@ -57,8 +61,10 @@ joint_mu = np.vstack((a_mu, b_mu))
 
 
 
+
 To show what samples from this distribution should look like, I'm going to use my favorite rule: if \\( \epsilon \sim \mathcal N(0, 1) \\), such as data from `np.random.randn`, then I can sample from \\( \mathcal{N}(\mu, \sigma^2) \\) by using \\( \sigma\epsilon + \mu \\).
 In the case of multivariate Gaussians, I use the Cholesky decomposition of the covariance matrix (kinda like taking the square root of a variance to get the standard deviation) and then use it and the mean to adjust numbers generated using `np.random.randn`.
+
 
 
 {% highlight python %}
@@ -74,6 +80,7 @@ plt.show()
 {% endhighlight %}
 
 ![](/assets/2018-05-09-joint.png)
+
 
 ## Conditionals
 
@@ -99,6 +106,7 @@ $$p(\textbf{f}, \textbf{g}) =
 then the conditional is
 
 $$p(\textbf{f} \mid \textbf{g}) = \mathcal N(\textbf{f}; \textbf{a} + CB^{-1}(\textbf{g} - \textbf{b}), A - CB^{-1}C^{\top})$$
+
 
 
 {% highlight python %}
@@ -140,7 +148,9 @@ def get_conditional_dist(joint_mu, joint_cov, var_index):
 
 
 
+
 Now set up the conditionals for this particular problem.
+
 
 
 {% highlight python %}
@@ -155,10 +165,12 @@ univariate_conditionals = [
 
 
 
+
 ## Gibbs sampling
 
 Now I'll implement the Gibbs sampling algorithm!
 What's cool is that `gibbs_sample` function only needs the univariate conditionals and how many samples to take.
+
 
 
 {% highlight python %}
@@ -190,11 +202,13 @@ def gibbs_sample(univariate_conditionals, sample_count):
 
 
 
+
 ## Visualizing
 
 Now I can try it out! I'll use Gibbs sampling to sample a few points and then plot it on top of the real joint distribution from the "Data generation" section.
 
 One thing to keep in mind about Gibbs sampling is that it only updates one dimension at a time. This means that samples from around the same time are correlated with each other. I drew the line connecting sequential samples to show this.
+
 
 
 {% highlight python %}
@@ -212,7 +226,9 @@ plt.show()
 
 ![](/assets/2018-05-09-gibbs-100.png)
 
+
 Now I can also sample a bunch of points and see how it compares to the original distribution. It looks the same! What's cool is that the one using Gibbs sampling only used samples from the univariate conditionals!
+
 
 
 {% highlight python %}

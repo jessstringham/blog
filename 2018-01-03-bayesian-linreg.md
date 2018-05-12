@@ -1,10 +1,12 @@
 ---
 title: 'Bayesian Linear Regression part 1: plotting samples from the weight prior'
-tags: [ML]
+tags: [jupyter]
 layout: post
 mathjax: true
-learning_alert: True
 ---
+
+[This post is also a Jupyter notebook!](https://github.com/jessstringham/blog/tree/master/notebooks/2018-01-03-bayesian-linear-regression-plots.ipynb)
+
 
 I took Iain Murray's Machine Learning and Pattern Recognition course this fall. It was fun and challenging.
 I often studied by coding demos, and some of them are kinda cool and I wanted to share them.
@@ -23,14 +25,28 @@ To find those parameter distributions in Bayesian land, I'd start with a prior d
 
 In this post, I'll just show how to sample a couple \\(w\\) and \\(b\\) from a 2D Gaussian distribution and plot them.
 
-### Sampling from the prior
-
-Here's some code that samples from a prior distribution on parameters.
 
 {% highlight python %}
+# imports!
 import numpy as np
 import matplotlib.pyplot as plt
 
+# helper functions you can skip over :D
+SAVE = False
+def maybe_save_plot(filename):
+    if SAVE:
+        plt.tight_layout()
+        plt.savefig('images/' + filename, bbox_inches="tight")
+{% endhighlight %}
+
+
+
+## Sampling from the prior
+
+Here's some code that samples from a prior distribution on parameters.
+
+
+{% highlight python %}
 # Set up the values to be plotted
 grid_size = 0.01
 x_grid = np.arange(-5, 5, grid_size)
@@ -49,8 +65,8 @@ line_count = 200
 mu_w = 0
 mu_b = 0
 
-sigma_w = 0.2
-sigma_b = 0.2
+sigma_w = 1.0
+sigma_b = 1.0
 
 w_0 = np.hstack([mu_b, mu_w])
 V_0 = np.diag([sigma_b, sigma_w])**2
@@ -64,23 +80,76 @@ plt.plot(x_grid, X @ w.T, '-m', alpha=.2)
 plt.show()
 {% endhighlight %}
 
+
+
 ### Examples
 
 Adjusting `sigma_b` changes the most likely y-intercept. A small `sigma_b` makes more points go through the origin (top), and a large `sigma_b` makes points spread out more.
 
+
+{% highlight python %}
+# set up helper code
+def sample_prior_weights(x_grid, mu_w=0, mu_b=0, sigma_w=0.2, sigma_b=0.2):
+    X = np.vstack((
+        np.ones(x_grid.shape[0]),
+        x_grid
+    )).T
+
+    w_0 = np.hstack([mu_b, mu_w])
+    V_0 = np.diag([sigma_b, sigma_w])**2
+    
+    w = np.random.randn(line_count, D) @ V_0 + w_0
+    
+    return X @ w.T
+{% endhighlight %}
+
+
+
 `sigma_w = 0.2`
-![small w variance](/assets/2018-01-03-small-w.png)
+
+
+{% highlight python %}
+y = sample_prior_weights(x_grid, sigma_w=0.2)
+
+plt.figure(figsize=(16, 8))
+plt.plot(x_grid, y, '-m', alpha=.2)
+maybe_save_plot('2018-01-03-small-w')
+plt.show()
+{% endhighlight %}
+
+![](/assets/2018-01-03-small-w.png)
 
 `sigma_w = 1.0`
-![big w variance](/assets/2018-01-03-big-w.png)
+
+
+{% highlight python %}
+y = sample_prior_weights(x_grid, sigma_w=1.0)
+
+plt.figure(figsize=(16, 8))
+plt.plot(x_grid, y, '-m', alpha=.2)
+maybe_save_plot('2018-01-03-big-w')
+plt.show()
+{% endhighlight %}
+
+![](/assets/2018-01-03-big-w.png)
 
 And by setting the \\(\mu\\), it makes the slopes and intercepts usually near that value.
 
 `mu_w = 0.5`
-![big w variance](/assets/2018-01-03-big-muw.png)
 
-### What's next?
 
+{% highlight python %}
+y = sample_prior_weights(x_grid, mu_w=0.5)
+
+plt.figure(figsize=(16, 8))
+plt.plot(x_grid, y, '-m', alpha=.2)
+maybe_save_plot('2018-01-03-big-muw')
+plt.show()
+{% endhighlight %}
+
+![](/assets/2018-01-03-big-muw.png)
+
+## What's next?
 
 [Observations]({% post_url 2018-01-08-bayesian-linreg-sample %}), [posteriors on the weights]({% post_url 2018-01-09-bayesian-linreg-posterior %}), and then [plotting predictions based on it!]({% post_url 2018-01-10-bayesian-linreg-plots %})
 

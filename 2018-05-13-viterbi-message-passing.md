@@ -1,5 +1,5 @@
 ---
-title: 'HMM exact inference continued: Viterbi'
+title: 'Inference in Hidden Markov Models continued: Viterbi Algorithm'
 tags: [jupyter]
 layout: post
 mathjax: true
@@ -9,7 +9,7 @@ mathjax: true
 
 
 
-This is a short post that continues from [the more-detailed alpha recursion HMM post]({% post_url 2018-05-02-hmm-alpha-recursion %}). In this post I'll implement Viterbi like Barber does. Like before, I'm porting the MatLab code from ["Bayesian Reasoning and Machine Learning"](http://www.cs.ucl.ac.uk/staff/d.barber/brml/).
+This is a short post that continues from [the more-detailed alpha recursion HMM post]({% post_url 2018-05-02-hmm-alpha-recursion %}). In this post I'll implement the [Viterbi algorithm](https://en.wikipedia.org/wiki/Viterbi_algorithm) like Barber does in ["Bayesian Reasoning and Machine Learning"](http://www.cs.ucl.ac.uk/staff/d.barber/brml/). Like before, I'm porting the MatLab code from the book.
 
 
 
@@ -187,3 +187,10 @@ plt.show()
 {% endhighlight %}
 
 ![](/assets/2018-05-13-viterbi.png)
+
+
+## See Also
+
+ - [This post]({% post_url 2018-05-13-viterbi-message-passing %}) builds on this post to show the Viterbi algorithm.
+ - [The more-detailed alpha recursion HMM post]({% post_url 2018-05-02-hmm-alpha-recursion %}).
+ - [This notebook](https://github.com/jessstringham/blog/blob/master/notebooks/2018-05-13-hmm-check-results.ipynb) runs this code using the same example from Barber.

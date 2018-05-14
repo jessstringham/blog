@@ -634,4 +634,4 @@ plt.show()
 ## See Also
 
  - [This post]({% post_url 2018-05-13-viterbi-message-passing %}) builds on this post to show the Viterbi algorithm.
- - [This notebook]({% post_url 2018-05-13-hmm-check-results %}) runs this code using the same example from Barber.
+ - [This notebook](https://github.com/jessstringham/blog/blob/master/notebooks/2018-05-13-hmm-check-results.ipynb) runs this code using the same example from Barber.

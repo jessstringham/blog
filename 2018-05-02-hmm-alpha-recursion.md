@@ -1,11 +1,12 @@
 ---
-title: Inference in discrete state Hidden Markov Models using numpy
+title: 'Inference in discrete state Hidden Markov Models using numpy'
 tags: [jupyter]
 layout: post
 mathjax: true
 ---
 
-[This post is also a Jupyter notebook!](https://github.com/jessstringham/blog/tree/master/notebooks/2018-05-02-HMM.ipynb)
+[This post is also a Jupyter notebook!](https://github.com/jessstringham/blog/tree/master/notebooks/2018-05-02-hmm-alpha-recursion.ipynb)
+
 
 
 This demo shows exact inference on a Hidden Markov Model with known, discrete transition and emission distributions that are fixed over time. It does alpha recursion, which is a sum-product algorithm on HMMs.
@@ -41,10 +42,12 @@ The rest of the notebook shows:
  - Finally I get to alpha recursion. I try to predict \\( h_{1:t} \\) based on \\( v_{1:t} \\), \\( p(h_1) \\), \\( p(h_t \mid h_{t - 1}) \\), and \\( p(v_t \mid h_t) \\).
 
 
+
 {% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 {% endhighlight %}
+
 
 
 
@@ -65,6 +68,7 @@ def hide_ticks(plot):
 
 
 
+
 ## Distributions
 
 Before anything, I'll set up the room. I want a \\( 6 \times 5 \\)* room with a total of 30 possible locations. 
@@ -76,24 +80,15 @@ In `numpy`, I'll set a `width` and `height` for the room and `num_hidden_states`
 *The original example used a \\( 5\times5 \\) room, but I didn't want to accidentally transpose my math, so I made it a rectangular room instead.
 
 
+
 {% highlight python %}
 width = 6
 height = 5
 num_hidden_states = width * height
-
-map_x_y_to_hidden_state_id = np.arange(num_hidden_states).reshape(height, width).T
-
-fig, ax = plt.subplots(figsize=(3, 5))
-ax.axis('off')
-for x in range(width):
-    for y in range(height):
-        ax.text(x / 3, y / 5 + .1, str(map_x_y_to_hidden_state_id[x][y]), fontsize='16')
-
-maybe_save_plot('2018-05-02-room-coordinates')
-plt.show()
 {% endhighlight %}
 
-![](/assets/2018-05-02-room-coordinates.png)
+
+
 
 ### Initial distribution (starting location) \\( p(h_1) \\)
 
@@ -109,6 +104,7 @@ To represent \\( p(h_1) \\) as a `numpy` array `p_hidden_start`:
 *Technically this distribution can be specified with only 29 values because it has to sum to 1. But I'm not going to worry about that here.
 
 
+
 {% highlight python %}
 # prob of starting starting locations
 p_hidden_start = np.ones(num_hidden_states) / num_hidden_states
@@ -117,6 +113,7 @@ p_hidden_start = np.ones(num_hidden_states) / num_hidden_states
 assert np.all(np.isclose(np.sum(p_hidden_start), 1))
 assert np.all(p_hidden_start >= 0)
 {% endhighlight %}
+
 
 
 
@@ -133,45 +130,55 @@ Using this I can define \\( p(h_t, h_{t - 1}) \\), which I can use to find \\( p
 *Like with \\( p(h_1) \\), technically this can be specified with \\( 30 \times 30 - 1 \\) values, because the entire table sums to 1. And like before, I'm not going to worry about that in code.
 
 
+
 {% highlight python %}
-# begin by building an unnormalized matrix with 1s for all legal moves.
-unnormalized_transition_joint = np.zeros((num_hidden_states, num_hidden_states))
+def create_transition_joint(width, height):
+    num_hidden_states = width * height
+    
+    # begin by building an unnormalized matrix with 1s for all legal moves.
+    unnormalized_transition_joint = np.zeros((num_hidden_states, num_hidden_states))
+    
+    # This will help me map from height and width to the state
+    map_x_y_to_hidden_state_id = np.arange(num_hidden_states).reshape(height, width).T
+    
+    for x in range(width):
+        for y in range(height):
+            h_t = map_x_y_to_hidden_state_id[x, y]
+    
+            # hax to go through each possible direction
+            for d in range(4):
+                new_x = x
+                new_y = y
+                if d // 2 == 0:
+                    # move left or right!
+                    new_x = x + ((d % 2) * 2 - 1)
+                else:
+                    # move up or down!
+                    new_y = y + ((d % 2) * 2 - 1)
+    
+                # make sure they don't walk through walls
+                if any((
+                    new_x > width - 1,
+                    new_x < 0,
+                    new_y > height - 1,
+                    new_y < 0
+                )):
+                    continue
+    
+                h_t_minus_1 = map_x_y_to_hidden_state_id[new_x, new_y]
+                unnormalized_transition_joint[h_t_minus_1][h_t] = 1
+    
+    # normalize!
+    p_transition_joint = unnormalized_transition_joint / np.sum(unnormalized_transition_joint)
+    
+    # make sure this is a joint probability
+    assert np.isclose(np.sum(p_transition_joint), 1)
+    # not super necessary, but eh
+    assert np.all(p_transition_joint >= 0)
 
-for x in range(width):
-    for y in range(height):
-        h_t = map_x_y_to_hidden_state_id[x, y]
-
-        # hax to go through each possible direction
-        for d in range(4):
-            new_x = x
-            new_y = y
-            if d // 2 == 0:
-                # move left or right!
-                new_x = x + ((d % 2) * 2 - 1)
-            else:
-                # move up or down!
-                new_y = y + ((d % 2) * 2 - 1)
-
-            # make sure they don't walk through walls
-            if any((
-                new_x > width - 1,
-                new_x < 0,
-                new_y > height - 1,
-                new_y < 0
-            )):
-                continue
-
-            h_t_minus_1 = map_x_y_to_hidden_state_id[new_x, new_y]
-            unnormalized_transition_joint[h_t_minus_1][h_t] = 1
-
-# normalize!
-p_transition_joint = unnormalized_transition_joint / np.sum(unnormalized_transition_joint)
-
-# make sure this is a joint probability
-assert np.isclose(np.sum(p_transition_joint), 1)
-# not super necessary, but eh
-assert np.all(p_transition_joint >= 0)
+    return p_transition_joint
 {% endhighlight %}
+
 
 
 
@@ -215,21 +222,33 @@ I'll build \\( p(h_t \mid h_{t - 1}) \\) column-wise. Each column will be the no
  - Divide the column `old_state` in `p_transition_joint` which represents \\( p(h_t, h_{t - 1}=\texttt{old_state}) \\) by that sum \\( p(h_{t - 1}=\texttt{old_state}) \\). That gives \\( p(h_t \mid h_{t - 1}=\texttt{old_state}) \\).
 
 
+
 {% highlight python %}
-p_transition = np.zeros((num_hidden_states, num_hidden_states))
+def create_transition(width, height):
+    p_transition_joint = create_transition_joint(width, height)
+    
+    num_hidden_states = width * height
 
-for old_state in range(num_hidden_states):
-    p_transition[:, old_state] = p_transition_joint[:, old_state] / np.sum(p_transition_joint[:, old_state])
-
-# verify it's a conditional distribution
-assert np.all(np.sum(p_transition, axis=0)) == 1
+    p_transition = np.zeros((num_hidden_states, num_hidden_states))
+    
+    for old_state in range(num_hidden_states):
+        p_transition[:, old_state] = p_transition_joint[:, old_state] / np.sum(p_transition_joint[:, old_state])
+    
+    # verify it's a conditional distribution
+    assert np.all(np.sum(p_transition, axis=0)) == 1
+    
+    return p_transition
+    
+p_transition = create_transition(width, height)    
 {% endhighlight %}
+
 
 
 
 #### Visualizing
 
 This one is weird to visualize but it makes a fun pattern.
+
 
 
 {% highlight python %}
@@ -243,6 +262,7 @@ plt.show()
 
 ![](/assets/2018-05-02-transition.png)
 
+
 #### Sample paths
 
 I can also generate a few path examples to see if they look right. Later, after I have the emission distribution, I can use this code to help generate the visibles.
@@ -250,19 +270,24 @@ I can also generate a few path examples to see if they look right. Later, after 
 The `np.random.choice` comes in handy a few times. The `p` argument allows me to specify a list of probabilities for each state. I use it to sample from the `p_hidden_start` distribution and the `p_transition` distribution for a given hidden state.
 
 
+
+{% highlight python %}
+def plot_state_in_room(state_id, width=width, height=height):
+    h = np.zeros(width * height)
+    h[state_id] = 1
+    return h.reshape(height, width)
+{% endhighlight %}
+
+
+
+
+
+
 {% highlight python %}
 timesteps = 10
 example_count = 5
 
-
 figs, all_axs = plt.subplots(example_count, timesteps, figsize=(timesteps, 1.5 * example_count))
-
-
-def plot_state_in_room(state_id):
-    h = np.zeros(num_hidden_states)
-    h[state_id] = 1
-    return h.reshape(height, width)
-
 
 for ex_i in range(example_count):
     # choose the starting state using `p_hidden_start`
@@ -288,6 +313,7 @@ plt.show()
 
 ![](/assets/2018-05-02-sample-paths.png)
 
+
 ### Emission distribution (bumps and creaks) \\( p(v_t \mid h_t) \\)
 
 Now I need the emission distribution \\( p(v_t \mid h_t) \\), which is the probability of a visible state given the hidden state.
@@ -301,6 +327,7 @@ Both of these have two states, so combining the two gives 4 visible states for \
  - bump and no creak
  - no bump and creak
  - no bump and no creak
+
 #### Bumps and Creaks map, \\( p(v^{bump}=True \mid h_t) \\)
 
 First I'll set up the bumpy and creaky aspects of the room. For example, `prob_bump_true_given_location` gives the probability distribution
@@ -312,6 +339,7 @@ $$p(v^{bump}=True \mid h_t)$$
 
 I try to implement this in a similar way to Barber. Ten random spots in the room have a higher probability, and the rest has a low probability. This introduces some noise to the problem.
 Here I use `np.random.choice` in a new way. In this case, I'm using it to select 10 spots to have a high probability of making a noise.
+
 
 
 {% highlight python %}
@@ -338,9 +366,11 @@ prob_creak_true_given_location = make_sound_map()
 
 
 
+
 ### Visualizing bumps and creaks
 
 Let's plot it!
+
 
 
 {% highlight python %}
@@ -360,6 +390,7 @@ plt.show()
 
 ![](/assets/2018-05-02-bumps-creaks.png)
 
+
 #### Emission distribution \\( p(v \mid h) \\)
 
 The goal is to define the distribution \\( p(v \mid h) \\). In `numpy`
@@ -376,19 +407,25 @@ But I also need to flatten out the visible states from 2 2-state visible variabl
 I also define a `map_visible_state_to_bump_creak` to map from the visible state to if there was a bump and/or creak.
 
 
+
 {% highlight python %}
 num_visible_states = 4
 
-# prob_bump_given_state[v][state] = p(v | state)
-p_emission = np.vstack((
-    prob_bump_true_given_location * prob_creak_true_given_location,
-    (1 - prob_bump_true_given_location) * prob_creak_true_given_location,
-    prob_bump_true_given_location * (1 - prob_creak_true_given_location),
-    (1 - prob_bump_true_given_location) * (1 - prob_creak_true_given_location),
-))
+def get_emission_matrix(prob_bump_true_given_location, prob_creak_true_given_location):
+    # prob_bump_given_state[v][state] = p(v | state)
+    p_emission = np.vstack((
+        prob_bump_true_given_location * prob_creak_true_given_location,
+        prob_bump_true_given_location * (1 - prob_creak_true_given_location),
+        (1 - prob_bump_true_given_location) * prob_creak_true_given_location,
+        (1 - prob_bump_true_given_location) * (1 - prob_creak_true_given_location),
+    ))
+    
+    assert np.all(np.sum(p_emission, axis=0)) == 1
+    
+    return p_emission
 
-assert np.all(np.sum(p_emission, axis=0)) == 1
-
+p_emission = get_emission_matrix(prob_bump_true_given_location, prob_creak_true_given_location)
+    
 # 1 means True. ex: [1, 0] means bump=True, creak=False
 map_visible_state_to_bump_creak = np.vstack((
     [1, 1],
@@ -400,11 +437,13 @@ map_visible_state_to_bump_creak = np.vstack((
 
 
 
+
 ### Visualizing \\( p(\textbf{v} \mid h_t) \\)
 
 This one's a little tricker to visualize. I'll show it as four plots of the probability each visible state.
 
 When I do alpha recursion the data below, the result of filtering for the first timestep will be exactly the same as one of these maps.
+
 
 
 {% highlight python %}
@@ -423,11 +462,13 @@ plt.show()
 
 ![](/assets/2018-05-02-v-given-h.png)
 
+
 ## Generating data: \\( \textbf{v}_{1:t} \\)
 
 Now I have all of the probabilities I need. On to part 2: generating some data!
 
 I'll do it for 10 timesteps.
+
 
 
 {% highlight python %}
@@ -456,11 +497,13 @@ for t in range(1, timesteps):
 
 
 
+
 ### Visualizing
 
 Let's take a peak at where they were moving and what sounds they made.
 
 Visibles are plotted as a rectangle with two colors. The left is black if there was a bump and white if not. The right is black if there was a creak and white if not.
+
 
 
 {% highlight python %}
@@ -474,7 +517,7 @@ all_axs[0][0].set_title('Visibles', x=-0.5, y=0.2)
 all_axs[0][1].set_title('Actual', x=-0.5, y=0.4)
 
 for i, (axs, hidden, visible) in enumerate(zip(all_axs, hiddens, visibles)):
-    axs[VISIBLES].imshow([map_visible_state_to_bump_creak[visible]], cmap='gray')
+    axs[VISIBLES].imshow([map_visible_state_to_bump_creak[visible]], cmap='gray', vmin=0, vmax=1)
     hide_ticks(axs[VISIBLES])    
     
     axs[TRUE_STATES].imshow(plot_state_in_room(hidden), cmap='gray')
@@ -485,6 +528,7 @@ plt.show()
 {% endhighlight %}
 
 ![](/assets/2018-05-02-v-over-time.png)
+
 
 ## Filtering: \\( p(h_t \mid v_{1:t}) \\)
 
@@ -503,6 +547,7 @@ and
 $$\alpha(h_1) = p(h_1, v_1) = p(v_1 \mid h_1)p(h_1).$$
 
 In code I'll compute an \\( \alpha \\) for each timestep. I'll use these to give the distribution over all states for that timestep given the visibles up until that timestep. Because I want the filtered posterior, I can rescale, so like Barber's code, I'm normalizing each \\( \alpha \\).
+
 
 
 {% highlight python %}
@@ -550,9 +595,11 @@ assert np.all(np.isclose(np.sum(alphas, axis=1), 1))
 
 
 
+
 ### Visualizing
 
 Again, but with the predictions!
+
 
 
 {% highlight python %}
@@ -568,13 +615,13 @@ all_axs[0][TRUE_STATES].set_title('Actual', x=-0.5, y=0.4)
 all_axs[0][FILTERING].set_title('Filtering', x=-0.5, y=0.4)
 
 for i, (axs, hidden, visible, alpha) in enumerate(zip(all_axs, hiddens, visibles, alphas)):
-    axs[VISIBLES].imshow([map_visible_state_to_bump_creak[visible]], cmap='gray')
+    axs[VISIBLES].imshow([map_visible_state_to_bump_creak[visible]], cmap='gray', vmin=0, vmax=1)
     hide_ticks(axs[VISIBLES])    
     
     axs[TRUE_STATES].imshow(plot_state_in_room(hidden), cmap='gray')
     hide_ticks(axs[TRUE_STATES])
     
-    axs[FILTERING].imshow(alpha.reshape(height, width))
+    axs[FILTERING].imshow(alpha.reshape(height, width), vmin=0)
     hide_ticks(axs[FILTERING])      
     
 maybe_save_plot('2018-05-02-filtering')
@@ -582,3 +629,9 @@ plt.show()
 {% endhighlight %}
 
 ![](/assets/2018-05-02-filtering.png)
+
+
+## See Also
+
+ - [This post]({% post_url 2018-05-13-viterbi-message-passing %}) builds on this post to show the Viterbi algorithm.
+ - [This notebook]({% post_url 2018-05-13-hmm-check-results %}) runs this code using the same example from Barber.

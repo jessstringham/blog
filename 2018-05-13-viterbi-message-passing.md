@@ -9,7 +9,7 @@ mathjax: true
 
 
 
-This is a short post that continues from [the more-detailed alpha recursion HMM post]({% post_url 2018-05-02-hmm-alpha-recursion %}). In this post I'll implement the [Viterbi algorithm](https://en.wikipedia.org/wiki/Viterbi_algorithm) like Barber does in ["Bayesian Reasoning and Machine Learning"](http://www.cs.ucl.ac.uk/staff/d.barber/brml/). Like before, I'm porting the MatLab code from the book.
+This is a short post that continues from [the more-detailed alpha recursion HMM post]({% post_url 2018-05-02-hmm-alpha-recursion %}). In this post I'll implement the [Viterbi algorithm](https://en.wikipedia.org/wiki/Viterbi_algorithm) like Barber does in ["Bayesian Reasoning and Machine Learning"](http://www.cs.ucl.ac.uk/staff/d.barber/brml/). Like before, I'm porting the MatLab code from the textbook.
 
 
 
@@ -59,7 +59,7 @@ $$\mu(h_T) = 1$$
 
 $$\mu(h_{t - 1}) = \max_{h_t} p(v_t \mid h_t)p(h_t \mid h_{t - 1})\mu(h_t).$$
 
-Once the messages are computed, the algorithm then computes the most-likely state for \\( h_1 \\), and uses that to compute the most-likely state for \\( h_2 \\) and so on. It basically maximizes the marginal of \\( p(h_t|v_{1:T}) \\) and then uses the most-likely state for \\( h_t \\) in the transition matrix for computing \\( p(h_{t + 1}|v_{1:T}) \\) so it returns a valid path.
+Once the messages are computed, the algorithm then computes the most-likely state for \\( h_1 \\), and uses that to compute the most-likely state for \\( h_2 \\) and so on. It basically maximizes the marginal of \\( p(h_t \mid v_{1:T}) \\) and then uses the most-likely state for \\( h_t \\) in the transition matrix for computing \\( p(h_{t + 1} \mid v_{1:T}) \\) so it returns a valid path.
 
 $$h_1^* = \max_{h_1} p(v_1 \mid h_1)p(h_1)\mu(h_1)$$
 

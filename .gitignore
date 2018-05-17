@@ -2,3 +2,4 @@
 migrated
 .ipynb_checkpoints
 __pycache__
+notebooks/data/*

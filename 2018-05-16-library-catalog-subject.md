@@ -35,6 +35,9 @@ The way I think of this is that if I can tell the model that "Best friends Ficti
 In NLP-land, "distributional methods" assume that "Words that occur in similar contexts tend to have similar meanings" (from [Jurafsky and Martin's textbook](http://web.stanford.edu/~jurafsky/slp3/15.pdf)). I think distributional methods would make interesting representations of library catalog subjects.
 One way to turn this into word vectors is to make sparse vectors of metrics based on co-occurring words, and then reduce the number of dimensions to get a dense vector.
 
+
+### Plan
+
 Using this assumption with library catalog subjects, I can describe "Musicians Fiction" with the subjects "Bullfighters Fiction", "Best friends Fiction", and so on. Specifically, I'll go through all catalog entries that contain "Musicians Fiction" and count up how many times each other subject shows up. This will give me a huge vector of counts like:
 
      Musicians Fiction:   0 1 4 0 ... 150K other numbers, mostly 0s ... 1 0 1 0

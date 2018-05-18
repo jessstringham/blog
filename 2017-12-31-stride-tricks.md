@@ -1,7 +1,8 @@
 ---
 title: "Part 1 of numpy tricks from convolutions: stride_tricks"
-tags: [ML]
+tags: ['machine learning concept demo']
 layout: post
+display_image: 2017-12-31-still-strided.png
 ---
 
 ![Strided](/assets/2017-12-31-strided.gif)

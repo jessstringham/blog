@@ -1,5 +1,5 @@
 ---
-title: 'Gaussian Processes for regression'
+title: 'Regression with Gaussian Processes'
 tags: [jupyter, machine learning concept demo]
 layout: post
 mathjax: true
@@ -58,7 +58,7 @@ N = 20  # How many points I'll sample
 all_xs = np.linspace(-10, 10, 500)[:, None]
 
 
-def split_up_xs(xs, N):
+def split_up_xgrid(xs, N):
     '''Choose N random points from raw_xs, return those N points and 
     the remaining points
     '''

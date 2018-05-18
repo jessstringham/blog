@@ -1,6 +1,6 @@
 ---
 title: -- in bash
-tags: [bash, lil-post]
+tags: [shell, tools]
 layout: post
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: 'Gibbs Sampling in Python'
-tags: [jupyter]
+tags: [jupyter, machine learning concept demo]
 layout: post
 mathjax: true
 ---

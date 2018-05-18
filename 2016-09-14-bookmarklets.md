@@ -1,6 +1,6 @@
 ---
 title: Bookmarklet
-tags: [lil-post]
+tags: [tools]
 layout: post
 ---
 

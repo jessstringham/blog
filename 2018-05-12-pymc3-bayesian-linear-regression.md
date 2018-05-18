@@ -1,6 +1,6 @@
 ---
 title: 'Bayesian linear regression with `pymc3`'
-tags: [jupyter]
+tags: [jupyter, machine learning concept demo]
 layout: post
 mathjax: true
 ---

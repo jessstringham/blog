@@ -1,6 +1,6 @@
 ---
 title: xmllint --shell
-tags: [lil-post]
+tags: [shell, tools]
 layout: post
 ---
 

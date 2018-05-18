@@ -1,6 +1,6 @@
 ---
 title: My blue Bluetooth keyboard
-tags: [gadgets, ideas]
+tags: [ideas]
 layout: post
 ---
 
@@ -34,7 +34,7 @@ world, it's relevant.
 
 ## Journaling
 
-Journaling is the very best. I totally recommend it to everyone. 
+Journaling is the very best. I totally recommend it to everyone.
 
 ### Digital scribbles
 

@@ -1,6 +1,6 @@
 ---
 title: 'Bayesian Linear Regression part 4: Plots'
-tags: [jupyter]
+tags: [jupyter, machine learning concept demo]
 layout: post
 mathjax: true
 ---

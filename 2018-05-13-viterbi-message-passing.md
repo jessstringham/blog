@@ -1,6 +1,6 @@
 ---
 title: 'Inference in Hidden Markov Models continued: Viterbi Algorithm'
-tags: [jupyter]
+tags: [jupyter, machine learning concept demo]
 layout: post
 mathjax: true
 ---

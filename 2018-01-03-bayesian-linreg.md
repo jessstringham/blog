@@ -1,6 +1,6 @@
 ---
 title: 'Bayesian Linear Regression part 1: plotting samples from the weight prior'
-tags: [jupyter]
+tags: [jupyter, machine learning concept demo]
 layout: post
 mathjax: true
 ---

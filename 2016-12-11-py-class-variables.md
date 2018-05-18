@@ -1,6 +1,6 @@
 ---
-title: "Class variables"
-tags: [python, things I should have known]
+title: "Class variables in Python"
+tags: [python, tools]
 layout: post
 ---
 
@@ -29,7 +29,7 @@ example, they might have the data `total_seen` and `count`:
 {% highlight python %}
 class Vegetable:
     total_seen = 0
-    
+
     def __init__(self):
         self.count = 0
 {% endhighlight %}
@@ -97,9 +97,9 @@ I'll use it for a contrived example.)
 Here's the spooky code:
 
 {% highlight python %}
-class Vegetable: 
+class Vegetable:
     total_seen = 0
-    
+
     def __init__(self):
         self.total_seen += 1  # This is the spooky part
 
@@ -126,9 +126,9 @@ attribute_. The _class attribute_ remains as `0`.
 Compare that to when we use the class-level attribute
 
 {% highlight python %}
-class Vegetable: 
+class Vegetable:
     total_seen = 0
-    
+
     def __init__(self):
         Vegetable.total_seen += 1  # This part changed
 
@@ -155,9 +155,9 @@ the case of a list, which is mutable, we're going to mutate the
 variable.
 
 {% highlight python %}
-class Vegetable: 
+class Vegetable:
     all_names = []
-    
+
     def __init__(self, name):
         self.all_names.append(name)  # interesting
 

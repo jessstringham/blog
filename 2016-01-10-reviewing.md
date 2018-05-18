@@ -1,6 +1,6 @@
 ---
 title: Reviewing everything
-tags: [learning]
+tags: [ideas]
 layout: post
 ---
 

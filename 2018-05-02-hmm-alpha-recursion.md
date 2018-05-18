@@ -1,6 +1,6 @@
 ---
 title: 'Inference in discrete state Hidden Markov Models using numpy'
-tags: [jupyter]
+tags: [jupyter, machine learning concept demo]
 layout: post
 mathjax: true
 ---

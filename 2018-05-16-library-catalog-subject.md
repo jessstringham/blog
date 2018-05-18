@@ -1,6 +1,6 @@
 ---
 title: 'Plotting Library Catalog Subjects'
-tags: [jupyter]
+tags: [jupyter, projects]
 layout: post
 mathjax: true
 ---
@@ -553,9 +553,8 @@ def plot(u, x_dim='x1', y_dim='x2', descs=index_to_interesting_subject):
     output_file("2018_05_16_library_catalog_subjects_{}_{}.html".format(x_dim, y_dim), title="Library Catalog Subjects")
     
     show(grid)
-    
-    
-plot(u, 'x1', 'x2')
+
+plot(vecs, 'x1', 'x2')
 {% endhighlight %}
 
 

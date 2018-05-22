@@ -31,21 +31,6 @@ I'll convert this to code. Heads up, I know this isn't the most efficient way to
 
 
 
-{% highlight python %}
-# imports!
-import numpy as np
-import matplotlib.pyplot as plt
-
-# helper functions you can skip over :D
-SAVE = True
-def maybe_save_plot(filename):
-    if SAVE:
-        plt.tight_layout()
-        plt.savefig('images/' + filename, bbox_inches="tight")
-{% endhighlight %}
-
-
-
 
 ### Variables
 
@@ -176,9 +161,6 @@ Putting it all together, I get
 
 
 {% highlight python %}
-import numpy as np
-import matplotlib.pyplot as plt
-
 # Set up the prior
 mu_w = 0
 mu_b = 0
@@ -222,31 +204,6 @@ Sweet! Now it seems like after doing all that code and math, I should be rewarde
 
 In this post, I'll just show one graph. `w_n` is the mean guess of the weights, so I can plot that function. I can also compare it to the weights from
 least squares and the true weights.
-
-
-
-{% highlight python %}
-grid_size = 0.01
-x_grid = np.arange(-1, 1, grid_size)[:, None]
-
-Phi_X = np.hstack((
-    np.ones((x_grid.shape[0], 1)),  # pad with 1s for the bias term
-    x_grid
-))
-
-lsqsq_w = np.linalg.lstsq(Phi_X_in, y)[0]
-
-plt.clf()
-plt.figure(figsize=(8, 6))
-plt.plot(X_in, y, 'xk', label='observations')
-plt.plot(x_grid, Phi_X @ true_w, '--b', alpha=0.5, label='true weights')
-plt.plot(x_grid, Phi_X @ w_n, label='Bayesian')
-plt.plot(x_grid, Phi_X @ lsqsq_w, label='lstsq')
-plt.legend()
-plt.ylim([1.5, 2.5])
-maybe_save_plot('2018-01-09-mean')  # Graph showing three lines, all near each other, going through the points.
-plt.show()
-{% endhighlight %}
 
 ![Graph showing three lines, all near each other, going through the points.](/assets/2018-01-09-mean.png)
 

@@ -43,31 +43,6 @@ The rest of the notebook shows:
 
 
 
-{% highlight python %}
-import numpy as np
-import matplotlib.pyplot as plt
-{% endhighlight %}
-
-
-
-
-
-
-{% highlight python %}
-# helper functions you can skip over :D
-SAVE = False
-def maybe_save_plot(filename):
-    if SAVE:
-        plt.tight_layout()
-        plt.savefig('images/' + filename, bbox_inches="tight")
-
-def hide_ticks(plot):
-    plot.axes.get_xaxis().set_visible(False)
-    plot.axes.get_yaxis().set_visible(False)
-{% endhighlight %}
-
-
-
 
 ## Distributions
 
@@ -249,17 +224,6 @@ p_transition = create_transition(width, height)
 
 This one is weird to visualize but it makes a fun pattern.
 
-
-
-{% highlight python %}
-fig, ax = plt.subplots()
-ax.imshow(p_transition)
-ax.set_title('p(new_state | old_state)')
-hide_ticks(ax)
-maybe_save_plot('2018-05-02-transition')
-plt.show()
-{% endhighlight %}
-
 ![](/assets/2018-05-02-transition.png)
 
 
@@ -284,6 +248,7 @@ def plot_state_in_room(state_id, width=width, height=height):
 
 
 {% highlight python %}
+# code for plots
 timesteps = 10
 example_count = 5
 
@@ -371,23 +336,6 @@ prob_creak_true_given_location = make_sound_map()
 
 Let's plot it!
 
-
-
-{% highlight python %}
-fig, (bump, creak) = plt.subplots(1, 2)
-
-bump.imshow(prob_bump_true_given_location.reshape(height, width))
-bump.set_title('p(bump=True|h)')
-hide_ticks(bump)
-
-creak.imshow(prob_creak_true_given_location.reshape(height, width))
-creak.set_title('p(creak=True|h)')
-hide_ticks(creak)
-
-maybe_save_plot('2018-05-02-bumps-creaks')
-plt.show()
-{% endhighlight %}
-
 ![](/assets/2018-05-02-bumps-creaks.png)
 
 
@@ -444,22 +392,6 @@ This one's a little tricker to visualize. I'll show it as four plots of the prob
 
 When I do alpha recursion the data below, the result of filtering for the first timestep will be exactly the same as one of these maps.
 
-
-
-{% highlight python %}
-fig, axs = plt.subplots(2, 2)
-for ax, probs, (bump, creak) in zip(axs.flatten(), p_emission, map_visible_state_to_bump_creak):
-    ax.imshow(probs.reshape(height, width))
-    ax.set_title(
-        'p('
-        + ('' if bump else 'no ') + 'bump & '
-        + ('' if creak else 'no ') + 'creak)'
-    )
-    hide_ticks(ax)
-maybe_save_plot('2018-05-02-v-given-h')    
-plt.show()    
-{% endhighlight %}
-
 ![](/assets/2018-05-02-v-given-h.png)
 
 
@@ -503,29 +435,6 @@ for t in range(1, timesteps):
 Let's take a peak at where they were moving and what sounds they made.
 
 Visibles are plotted as a rectangle with two colors. The left is black if there was a bump and white if not. The right is black if there was a creak and white if not.
-
-
-
-{% highlight python %}
-fig, all_axs = plt.subplots(2, timesteps, figsize=(16, 4))
-all_axs = all_axs.T
-
-VISIBLES = 0
-TRUE_STATES = 1
-
-all_axs[0][0].set_title('Visibles', x=-0.5, y=0.2)
-all_axs[0][1].set_title('Actual', x=-0.5, y=0.4)
-
-for i, (axs, hidden, visible) in enumerate(zip(all_axs, hiddens, visibles)):
-    axs[VISIBLES].imshow([map_visible_state_to_bump_creak[visible]], cmap='gray', vmin=0, vmax=1)
-    hide_ticks(axs[VISIBLES])    
-    
-    axs[TRUE_STATES].imshow(plot_state_in_room(hidden), cmap='gray')
-    hide_ticks(axs[TRUE_STATES])
-    
-maybe_save_plot('2018-05-02-v-over-time')
-plt.show()    
-{% endhighlight %}
 
 ![](/assets/2018-05-02-v-over-time.png)
 
@@ -599,34 +508,6 @@ assert np.all(np.isclose(np.sum(alphas, axis=1), 1))
 ### Visualizing
 
 Again, but with the predictions!
-
-
-
-{% highlight python %}
-fig, all_axs = plt.subplots(3, timesteps, figsize=(16, 4))
-all_axs = all_axs.T
-
-VISIBLES = 0
-TRUE_STATES = 1
-FILTERING = 2
-
-all_axs[0][VISIBLES].set_title('Visibles', x=-0.5, y=0.2)
-all_axs[0][TRUE_STATES].set_title('Actual', x=-0.5, y=0.4)
-all_axs[0][FILTERING].set_title('Filtering', x=-0.5, y=0.4)
-
-for i, (axs, hidden, visible, alpha) in enumerate(zip(all_axs, hiddens, visibles, alphas)):
-    axs[VISIBLES].imshow([map_visible_state_to_bump_creak[visible]], cmap='gray', vmin=0, vmax=1)
-    hide_ticks(axs[VISIBLES])    
-    
-    axs[TRUE_STATES].imshow(plot_state_in_room(hidden), cmap='gray')
-    hide_ticks(axs[TRUE_STATES])
-    
-    axs[FILTERING].imshow(alpha.reshape(height, width), vmin=0)
-    hide_ticks(axs[FILTERING])      
-    
-maybe_save_plot('2018-05-02-filtering')
-plt.show()
-{% endhighlight %}
 
 ![](/assets/2018-05-02-filtering.png)
 

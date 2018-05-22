@@ -24,20 +24,6 @@ I also thought [this video](https://www.youtube.com/watch?v=Jv25sg-IYHU) was use
 
 
 
-{% highlight python %}
-import matplotlib.pyplot as plt
-import numpy as np
-
-# helper functions you can skip over :D
-SAVE = True
-def maybe_save_plot(filename):
-    if SAVE:
-        plt.tight_layout()
-        plt.savefig('images/' + filename, bbox_inches="tight")
-{% endhighlight %}
-
-
-
 
 ## Generating Data
 
@@ -121,21 +107,6 @@ observed_ys = f(observed_xs) + (sigma_w * np.random.randn(observed_xs.shape[0]))
 
 Here I plot the function \\( f \\) and the observed \\( y \\).
 
-
-
-{% highlight python %}
-plt.clf()
-
-plt.figure(figsize=(12, 6))
-plt.plot(all_xs, f(all_xs), '-r', alpha=0.5)
-plt.plot(observed_xs, observed_ys, 'xk')
-
-plt.ylim(-5, 3)
-
-maybe_save_plot('2018-05-18-observations')
-plt.show()
-{% endhighlight %}
-
 ![](/assets/2018-05-18-observations.png)
 
 
@@ -201,50 +172,20 @@ Changes in \\( \sigma_f \\) will change how large each value is.
 
 
 {% highlight python %}
-def plot_K(ell, sigma_f, title):
+def plot_K(ax, ell, sigma_f, title):
     size = 16
     x = np.linspace(-4, 4, size)
     K = create_K(x, x, ell, sigma_f)
     
     # hardcode a max value so diff sigmas are obvious
-    plt.imshow(K, cmap='hot', interpolation='nearest', vmin=0, vmax=100)
-    plt.title(title)
+    ax.imshow(K, cmap='hot', interpolation='nearest', vmin=0, vmax=100)
+    ax.set_title(title)
 {% endhighlight %}
 
 
 
 
-
-
-{% highlight python %}
-plot_K(2, 10, 'large ell')
-maybe_save_plot('2018-05-18-large-ell')
-plt.show()
-{% endhighlight %}
-
-![](/assets/2018-05-18-large-ell.png)
-
-
-
-
-{% highlight python %}
-plot_K(0.5, 10, 'small ell')
-maybe_save_plot('2018-05-18-small-ell')
-plt.show()
-{% endhighlight %}
-
-![](/assets/2018-05-18-small-ell.png)
-
-
-
-
-{% highlight python %}
-plot_K(0.5, 20, 'large sigma')
-maybe_save_plot('2018-05-18-large-sigma')
-plt.show()
-{% endhighlight %}
-
-![](/assets/2018-05-18-large-sigma.png)
+![](/assets/2018-05-18-different-cov.png)
 
 
 ### Prior
@@ -267,16 +208,10 @@ stds = np.sqrt(np.diagonal(cov))
 
 bottom = (mu[:, None] - 2 * stds[:, None])[:, 0]
 top = (mu[:, None] + 2 * stds[:, None])[:, 0]
-
-plt.figure(figsize=(18, 6))
-
-plt.plot(all_xs, f(all_xs), '-k', alpha=0.5)
-plt.plot(all_xs, mu, '-b', alpha=0.5)
-plt.fill_between(all_xs[:, 0], bottom, top, color='blue', alpha=0.2)
-plt.plot(observed_xs, observed_ys, 'xk')
-maybe_save_plot('2018-05-18-prior-beliefs')
-plt.show()
 {% endhighlight %}
+
+
+
 
 ![](/assets/2018-05-18-prior-beliefs.png)
 
@@ -342,28 +277,15 @@ def upper_lower_bounds(mu, cov):
     
     # forcing everything to be the right size
     return (mu[:, None] - 2 * stds[:, None])[:, 0], (mu[:, None] + 2 * stds[:, None])[:, 0]
+
+mu, cov = posterior(unobserved_xs, observed_xs, observed_ys, ell=1, sigma_f=1)
+bottom, top = upper_lower_bounds(mu, cov)
 {% endhighlight %}
 
 
 
 
 And now I'll plot it!
-
-
-
-{% highlight python %}
-mu, cov = posterior(unobserved_xs, observed_xs, observed_ys, ell=1, sigma_f=1)
-bottom, top = upper_lower_bounds(mu, cov)
-
-plt.figure(figsize=(18, 6))
-
-plt.plot(all_xs, f(all_xs), '-k', alpha=0.5)
-plt.plot(unobserved_xs, mu, '-b', alpha=0.5)
-plt.fill_between(unobserved_xs, bottom, top, color='blue', alpha=0.2)
-plt.plot(observed_xs, observed_ys, 'xk')
-maybe_save_plot('2018-05-18-prediction')
-plt.show()
-{% endhighlight %}
 
 ![](/assets/2018-05-18-prediction.png)
 
@@ -377,15 +299,9 @@ Super neat! I can also do this again with different hyperparameters. If I turn \
 {% highlight python %}
 mu, cov = posterior(unobserved_xs, observed_xs, observed_ys, ell=1, sigma_f=0.1)
 bottom, top = upper_lower_bounds(mu, cov)
-
-plt.figure(figsize=(18, 6))
-
-plt.plot(all_xs, f(all_xs), '-k', alpha=0.5)
-plt.plot(unobserved_xs, mu, '-b', alpha=0.5)
-plt.fill_between(unobserved_xs, bottom, top, color='blue', alpha=0.2)
-plt.plot(observed_xs, observed_ys, 'xk')
-maybe_save_plot('2018-05-18-poor-prediction')
-plt.show()
 {% endhighlight %}
+
+
+
 
 ![](/assets/2018-05-18-poor-prediction.png)

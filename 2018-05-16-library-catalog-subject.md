@@ -54,27 +54,6 @@ This was a quick introduction to dense vectors. Check out [Vector Semantics](htt
 
 
 
-{% highlight python %}
-# imports and helper functions you can skip over :D
-import csv
-from collections import defaultdict
-import os
-
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-import scipy.sparse as sp
-from scipy.sparse.linalg import svds
-
-SAVE = True
-def maybe_save_plot(filename):
-    if SAVE:
-        plt.tight_layout()
-        plt.savefig('images/' + filename, bbox_inches="tight")
-{% endhighlight %}
-
-
-
 
 ### Data
 
@@ -103,6 +82,20 @@ with open(file_path, 'r') as csvfile:
 
 
 
+
+    ('BibNum', '3011076')
+    ('Title', "A tale of two friends / adapted by Ellie O'Ryan ; illustrated by Tom Caulfield, Frederick Gardner, Megan Petasky, and Allen Tam.")
+    ('Author', "O'Ryan, Ellie")
+    ('ISBN', '1481425730, 1481425749, 9781481425735, 9781481425742')
+    ('PublicationYear', '2014.')
+    ('Publisher', 'Simon Spotlight,')
+    ('Subjects', 'Musicians Fiction, Bullfighters Fiction, Best friends Fiction, Friendship Fiction, Adventure and adventurers Fiction')
+    ('ItemType', 'jcbk')
+    ('ItemCollection', 'ncrdr')
+    ('FloatingItem', 'Floating')
+    ('ItemLocation', 'qna')
+    ('ReportDate', '09/01/2017')
+    ('ItemCount', '1')
 
 ### Preprocessing
 
@@ -447,21 +440,6 @@ def plot_in_4d(axes, four_dim_vec, plot_args=None, plot_kwargs=None, label=''):
 
 
 
-
-
-{% highlight python %}
-topic = 'documentary films'
-vec = vecs[interesting_subject_to_index[topic], None]
-
-fig, axes = plt.subplots(3, 3, figsize=(16, 16), sharex=True, sharey=True)
-
-plot_in_4d(axes, vecs, plot_kwargs={'color': 'lightgray'})
-plot_in_4d(axes, vec, plot_args=['xk'], label=topic)
-
-maybe_save_plot('2018-05-16-4d-plot')
-plt.show()
-{% endhighlight %}
-
 ![](/assets/2018-05-16-4d-plot.png)
 
 
@@ -472,42 +450,6 @@ I haven't sorted out why points like `documentary films` are so far away. I've s
 This is fun to explore! Here I plot a few different subjects. There seems to be one dimension for films, books, ending in a little corner for graphic novels and comic books. The other dimension stretches from children's books to other fiction to mystery and thriller books.
 
 Next, I can take one view and highlight a few different subjects.
-
-
-
-{% highlight python %}
-fun_topics = [
-    'documentary films',
-    'fiction films',
-    'mystery fiction',
-    'thrillers fiction',
-    'audiobooks',
-    'friendship juvenile fiction',
-    'graphic novels',
-    'science fiction',
-    'large type books',
-    'television series',
-    'chinese language materials',
-    'picture books for children',
-    'serial murderers fiction',
-]
-
-fig, axes = plt.subplots(1, 1, figsize=(16, 16), sharex=True, sharey=True)
-
-x_dim = 2
-y_dim = 1
-
-axes.plot(vecs[:, x_dim], vecs[:, y_dim], '.', color='lightgray')
-
-for topic in fun_topics:
-    x = vecs[interesting_subject_to_index[topic], x_dim]
-    y = vecs[interesting_subject_to_index[topic], y_dim]    
-    axes.plot(x, y, 'xk')
-    axes.annotate(topic, (x - 0.002, y + 0.005), fontsize=14)
-
-maybe_save_plot('2018-05-16-labeled-plot')
-plt.show()
-{% endhighlight %}
 
 ![](/assets/2018-05-16-labeled-plot.png)
 

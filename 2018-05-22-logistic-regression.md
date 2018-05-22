@@ -21,23 +21,6 @@ See also:
 
 
 
-{% highlight python %}
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.optimize import minimize
-from scipy.optimize import check_grad
-
-# helper functions you can skip over :D
-def hide_ticks(plot):
-    plot.axes.get_xaxis().set_visible(False)
-    plot.axes.get_yaxis().set_visible(False)
-
-SAVE = True
-def maybe_save_plot(filename):
-    if SAVE:
-        plt.tight_layout()
-        plt.savefig('images/' + filename, bbox_inches="tight")
-{% endhighlight %}
 
 
 
@@ -78,25 +61,6 @@ fuzzy_data, fuzzy_labels = get_observations(N)
 
 
 
-
-
-{% highlight python %}
-def plot_labeled_data(ax, data, labels):
-    '''
-    ax: matplotlib axis
-    data: (N, D) 2D data points
-    labels: (N,) label of 0 or 1
-    '''
-    ax.plot(*data[labels == 0].T, '.')
-    ax.plot(*data[labels == 1].T, '.')
-
-plt.figure(figsize=(6, 6))
-plot_labeled_data(plt, fuzzy_data, fuzzy_labels)
-plt.axis('square')
-maybe_save_plot('2018-05-22-fuzzy')
-plt.show()
-{% endhighlight %}
-
 ![](/assets/2018-05-22-fuzzy.png)
 
 
@@ -129,16 +93,6 @@ def sigmoid_with_bias(bias_and_weights, x):
 
 
 
-
-
-
-{% highlight python %}
-xs = np.linspace(-5, 5, 100)
-plt.plot(xs, sigmoid_with_bias(np.array([0, 1]), xs[None, :]))
-plt.title('Logistic sigmoid')
-maybe_save_plot('2018-05-22-sigmoid')
-plt.show()
-{% endhighlight %}
 
 ![](/assets/2018-05-22-sigmoid.png)
 
@@ -187,45 +141,10 @@ def plot_sigmoid(ax, w, data, labels):
 
 
 
-
-
-{% highlight python %}
-w = np.hstack([2, 3/2, -2])
-data = fuzzy_data
-labels = fuzzy_labels
-
-plt.figure(figsize=(6, 6))
-
-sigmoid_vals = plot_sigmoid(plt, w, data, labels)
-
-plt.imshow(
-    sigmoid_vals, 
-    interpolation='bilinear', 
-    origin='lower', 
-    extent=(MIN_GRID_VAL, MAX_GRID_VAL, MIN_GRID_VAL, MAX_GRID_VAL)
-)
-
-plt.axis('square')
-maybe_save_plot('2018-05-22-2d-sigmoid')
-plt.show()
-{% endhighlight %}
-
 ![](/assets/2018-05-22-2d-sigmoid.png)
 
 
 If I drop this sigmoid on the Fuzzy Data, it looks like this \\( \textbf w \\) and \\( b \\) make a terrible boundary.
-
-
-
-{% highlight python %}
-plt.clf()
-plt.figure(figsize=(6, 6))
-plot_sigmoid(plt, w, fuzzy_data, fuzzy_labels)    
-plot_labeled_data(plt, fuzzy_data, fuzzy_labels)
-plt.axis('square')
-maybe_save_plot('2018-05-22-bad-fit')
-plt.show()
-{% endhighlight %}
 
 ![](/assets/2018-05-22-bad-fit.png)
 
@@ -260,19 +179,6 @@ example_optimizer_result = minimize(f, x0=3, jac=grad_f, method='BFGS')
 
 
 
-
-
-
-{% highlight python %}
-plt.plot(xgrid, f(xgrid), label='loss function')
-plt.plot(example_optimizer_result.x, f(example_optimizer_result.x), 'Xk', label='minimum')
-plt.title('loss over values of x')
-plt.xlabel('x')
-plt.ylabel('loss')
-plt.legend()
-maybe_save_plot('2018-05-22-optimizer')
-plt.show()
-{% endhighlight %}
 
 ![](/assets/2018-05-22-optimizer.png)
 
@@ -397,44 +303,10 @@ To visualize what the minimizer found, I'll plot the loss function, or the negat
 
 
 
-{% highlight python %}
-w0, w1, w2 = log_reg_optimizer_result.x
-loss_xgrid = np.linspace(w1 - 2, w1 + 2, 100)
-
-plt.figure(figsize=(8, 6))
-
-# Plot the loss function
-loss_over_w1 = np.hstack((
-    loss_func(np.array([ w0, i, w2]))
-    for i in loss_xgrid
-))
-
-plt.plot(loss_xgrid, loss_over_w1, label='loss function')
-plt.plot(w1, loss_func(log_reg_optimizer_result.x), 'Xk', label='minimum')
-plt.title('loss over values of w1')
-plt.xlabel('w1')
-plt.ylabel('loss')
-plt.legend()
-plt.show()
-{% endhighlight %}
-
-
-
 
 ### Logistic sigmoid on the data with fitted weights
 
 Plotting the logistic sigmoid with the fitted weights looks much better!
-
-
-
-{% highlight python %}
-plt.figure(figsize=(8, 6))
-plot_sigmoid(plt, log_reg_optimizer_result.x, fuzzy_data, fuzzy_labels)  
-plot_labeled_data(plt, fuzzy_data, fuzzy_labels)
-plt.axis('square')
-maybe_save_plot('2018-05-22-fitted-weights')
-plt.show()
-{% endhighlight %}
 
 ![](/assets/2018-05-22-fitted-weights.png)
 
@@ -472,17 +344,6 @@ lin_sep_data, lin_sep_labels = get_lin_sep_observations(N)
 
 
 
-
-
-{% highlight python %}
-plt.figure(figsize=(6, 6))
-
-plot_labeled_data(plt, lin_sep_data, lin_sep_labels)
-plt.axis('square')
-maybe_save_plot('2018-05-22-lin-sep')
-plt.show()
-{% endhighlight %}
-
 ![](/assets/2018-05-22-lin-sep.png)
 
 
@@ -515,28 +376,5 @@ very_reg_optimizer_result, _ = fit_logistic_regression(
 
 
 The main thing I want to show is that with no regularization constant, the boundary will become as steep as it can until the optimizer gives up. I also show the effect of a higher regularization constant.
-
-
-
-{% highlight python %}
-fig, axs = plt.subplots(1, 3, figsize=(18, 6), sharex=True, sharey=True)
-
-axs[0].axis([-5, 5, -5, 5])
-
-plot_sigmoid(axs[0], no_reg_optimizer_result.x, lin_sep_data, lin_sep_labels)    
-plot_labeled_data(axs[0], lin_sep_data, lin_sep_labels)
-axs[0].set_title('No regularization')
-
-plot_sigmoid(axs[1], reg_optimizer_result.x, lin_sep_data, lin_sep_labels)    
-plot_labeled_data(axs[1], lin_sep_data, lin_sep_labels)
-axs[1].set_title('With regularization, lambda = 0.1')
-
-plot_sigmoid(axs[2], very_reg_optimizer_result.x, lin_sep_data, lin_sep_labels)    
-plot_labeled_data(axs[2], lin_sep_data, lin_sep_labels)
-axs[2].set_title('With regularization, lambda = 10')
-
-maybe_save_plot('2018-05-22-reg-vs-no')
-plt.show()
-{% endhighlight %}
 
 ![](/assets/2018-05-22-reg-vs-no.png)

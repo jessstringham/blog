@@ -16,21 +16,6 @@ Now I have [priors on the weights]({% post_url 2018-01-03-bayesian-linreg %}) an
 
 
 
-{% highlight python %}
-# imports!
-import numpy as np
-import matplotlib.pyplot as plt
-
-# helper functions you can skip over :D
-SAVE = True
-def maybe_save_plot(filename):
-    if SAVE:
-        plt.tight_layout()
-        plt.savefig('images/' + filename, bbox_inches="tight")
-{% endhighlight %}
-
-
-
 
 ## Set up
 
@@ -79,25 +64,7 @@ w_n = V_n @ V0_inv @ w_0 + 1 / (sigma_y**2) * V_n @ Phi_X_in.T @ y
 
 #### Quick aside
 
-Above I plot a 2D array to plot multiple lines, which makes matplotlib create a lot of duplicate labels. I'm not sure if plotting matrix is a bad idea to start with, but I did it anyway and used a `dedup_labels` helper function to deduplicate labels:
-
-
-
-
-
-{% highlight python %}
-# hrm, plotting the matrix made for `N` duplicate labels.
-# https://stackoverflow.com/questions/26337493/pyplot-combine-multiple-line-labels-in-legend
-def get_dedup_labels(plt):
-    handles, labels = plt.gca().get_legend_handles_labels()
-    new_handles = []
-    new_labels = []
-    for handle, label in zip(handles, labels):
-        if label not in new_labels:
-            new_handles.append(handle)
-            new_labels.append(label)
-    return new_handles, new_labels
-{% endhighlight %}
+Above I plot a 2D array to plot multiple lines, which makes matplotlib create a lot of duplicate labels. I'm not sure if plotting matrix is a bad idea to start with, but I did it anyway and used a helper function to deduplicate labels.
 
 
 
@@ -121,15 +88,10 @@ Phi_X = np.hstack((
 ))
 
 w = np.random.randn(N, 2) @ np.linalg.cholesky(V_n) + w_n.T
-
-plt.clf()
-plt.figure(figsize=(8, 6))
-plt.plot(x_grid, Phi_X @ w.T, '-m', alpha=.2, label='weights sampled from posterior')
-plt.plot(X_in, y, 'xk', label='observations')
-plt.legend(*get_dedup_labels(plt))
-maybe_save_plot('2018-01-10-samples')  # Graph showing x's for observations, a line from the mean Bayesian prediction, and shaded area of uncertainty.
-plt.show()
 {% endhighlight %}
+
+
+
 
 ![Graph showing x's for observations, a line from the mean Bayesian prediction, and shaded area of uncertainty.](/assets/2018-01-10-samples.png)
 
@@ -163,18 +125,10 @@ stdev_pred = np.sqrt(np.sum(np.dot(Phi_X, V_n) * Phi_X, 1)[:, None] + sigma_y**2
 
 upper_bound = Phi_X @ w_n + 2 * stdev_pred
 lower_bound = Phi_X @ w_n - 2 * stdev_pred
-
-
-plt.clf()
-plt.figure(figsize=(8, 6))
-plt.plot(X_in, y, 'xk', label='observations')
-# I think fill_between wants 1D arrays
-plt.fill_between(x_grid[:, 0], lower_bound[:, 0], upper_bound[:, 0], alpha=0.2, label='two standard deviations')
-plt.plot(x_grid, Phi_X @ w_n, label='mean prediction')
-plt.legend()
-maybe_save_plot('2018-01-10-uncertainty')  # Graph showing x's for observations, a line from the mean Bayesian prediction, and shaded area of uncertainty.
-plt.show()
 {% endhighlight %}
+
+
+
 
 ![Graph showing x's for observations, a line from the mean Bayesian prediction, and shaded area of uncertainty.](/assets/2018-01-10-uncertainty.png)
 
@@ -203,27 +157,6 @@ which for each \\(\mathbf x\\) is \\(\mathcal N(y; \mathbf w^{\top} \mathbf x, \
 
 
 
-
-
-
-{% highlight python %}
-w = np.random.randn(1, 2) @ np.linalg.cholesky(V_n) + w_n.T
-
-mean_pred = Phi_X @ w.T
-
-plt.clf()
-plt.figure(figsize=(8, 6))
-
-upper_bound = mean_pred[:, 0] + 2 * sigma_y
-lower_bound = mean_pred[:, 0] - 2 * sigma_y
-
-plt.plot(x_grid, mean_pred[:, 0], '-m', label='weight sampled from posterior')
-plt.fill_between(x_grid[:, 0], lower_bound, upper_bound, color='m', alpha=0.2, label='two standard deviations')
-
-plt.plot(X_in, y, 'xk', label='observations')
-maybe_save_plot('2018-01-10-sample-with-error')  # Graph showing x's for observations, a line for one sample of the weights, and shaded area for uncertainty.
-plt.show()
-{% endhighlight %}
 
 ![Graph showing x's for observations, a line for one sample of the weights, and shaded area for uncertainty.](/assets/2018-01-10-sample-with-error.png)
 

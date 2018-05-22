@@ -9,50 +9,26 @@ mathjax: true
 
 
 
-In 12 hours I'll be finishing my last exam for my masters! This one is for [Data Mining and Exploration](https://www.inf.ed.ac.uk/teaching/courses/dme/). One topic we covered was *Multidimensional Scaling* (MDS), which turns out to require a lot of the neat things we learned in class. MDS methods take similarity between pairs of points, such as distance, and uses them to estimate where the points are in space while trying to preserve their pairwise similarity. This method is useful if you want to visualize points but all you have is a measure of pairwise similarity.
+In 12 hours I'll be finishing my last exam for my masters! This one is for [Data Mining and Exploration](https://www.inf.ed.ac.uk/teaching/courses/dme/). One topic we covered was *Multidimensional Scaling* (MDS), which turns out to require a lot of the neat things we learned in class. MDS methods take similarity between pairs of points, such as distance, and uses them to estimate where the points are in space while trying to preserve their pairwise similarity. This method is useful if you want to visualize points but all you have is a measure of something like distance.
 
-One way of doing MDS assumes the similarities are Euclidean distances. While other MDS techniques require iterative optimization, the Euclidean-distance-based form conveniently has a closed-form solution based on PCA.
+One way of doing MDS is to assume the similarities are Euclidean distances. While other MDS techniques require iterative optimization, the Euclidean-distance-based approach has a closed-form solution based on PCA.
 
-To summarize what the goal is: MDS takes in \\( \Delta \\), an \\( N \times N \\) symmetric matrix of distances, and returns a \\( K \times N \\) matrix of embedded data points, where \\( N \\) is the number of examples in our dataset, and \\( K \\) is a user-defined number of dimensions we want to the points to be in.
+To summarize, MDS takes in \\( \Delta \\), an \\( N \times N \\) symmetric matrix of distances, and returns a \\( K \times N \\) matrix of embedded data points, where \\( N \\) is the number of examples in our dataset, and \\( K \\) is a user-defined number of dimensions that the points should be in.
 
-In order to demonstrate MDS, I first generate fake underlying data points and then compute distances based on this. Then I'll compute a few other forms that will be useful for comparision: a centered data using a *centering matrix* and the *Gram matrix*.
-Then I'll apply MDS to the generated distance matrix. At the end, I apply MDS to a dataset of North American city distances resulting in the data below.
+In order to demonstrate MDS, I first generate fake underlying data points and then compute distances from them. Then I'll compute a few other forms that will be useful for comparision: the *Gram matrix* and a centered data matrix using a *centering matrix*.
+Then I'll apply MDS to the generated distance matrix. At the end, I apply MDS to a dataset of distances between North American cities resulting in the plot below. It might be squashed and upside-down, but it almost looks like a map of North America!
 
 ![](/assets/2018-05-20-north-america-per-state-province.png)
 
 
 
-{% highlight python %}
-import numpy as np
-import matplotlib.pyplot as plt
-
-from sklearn.metrics.pairwise import euclidean_distances
-{% endhighlight %}
-
-
-
-
-
-
-{% highlight python %}
-# helper functions you can skip over :D
-def hide_ticks(plot):
-    plot.axes.get_xaxis().set_visible(False)
-    plot.axes.get_yaxis().set_visible(False)
-
-SAVE = True
-def maybe_save_plot(filename):
-    if SAVE:
-        plt.tight_layout()
-        plt.savefig('images/' + filename, bbox_inches="tight")
-{% endhighlight %}
 
 
 
 
 ## Data generation
 
-Usually the point of using MDS is you don't know the underlying points. But for comparison, I'll need to generate some points. In this case, the underlying data is in a much higher dimension.
+Usually the point of using MDS is you don't have the underlying points. However, I'll generate some points so I can get a distance matrix from them as well as compare intermediate forms. In this case, the underlying data is in a much higher dimension.
 
 I'll start with some Gaussian data that is rotated and shifted. I also define some constants:
 
@@ -104,6 +80,13 @@ print("averages found\n", (uncentered_data @ averaging_ones)[:, :6])
 
 
 
+    originally shifted by  [0 1 2 3]
+    averages found
+     [[-0.03951054 -0.03951054 -0.03951054 -0.03951054 -0.03951054 -0.03951054]
+     [ 1.01209654  1.01209654  1.01209654  1.01209654  1.01209654  1.01209654]
+     [ 2.01898754  2.01898754  2.01898754  2.01898754  2.01898754  2.01898754]
+     [ 2.9924229   2.9924229   2.9924229   2.9924229   2.9924229   2.9924229 ]]
+
 I'll make a function \\( C_n \\) I can use later. I'll also create a centered set of \\( X \\) to have handy.
 
 
@@ -136,15 +119,6 @@ pc_scores_from_X = np.diag(s[:K]) @ vh[:K]
 
 
 
-
-
-{% highlight python %}
-plt.plot(*pc_scores_from_X, '.')
-plt.axis('equal')
-maybe_save_plot('2018-05-20-pc-scores-from-x')
-plt.show()
-{% endhighlight %}
-
 ![](/assets/2018-05-20-pc-scores-from-x.png)
 
 
@@ -173,17 +147,6 @@ distance_matrix = euclidean_distances(X.T)**2
 
 
 For fun, I can plot a corner of the distance matrix. This shows what I'd expect: the diagonal elements are 0 because the distance between a point and itself is 0. It's otherwise symmetric and positive.
-
-
-
-{% highlight python %}
-fig, ax = plt.subplots()
-
-ax.imshow(distance_matrix[:20, :20])
-hide_ticks(ax)
-maybe_save_plot('2018-05-20-distances')
-plt.show()
-{% endhighlight %}
 
 ![](/assets/2018-05-20-distances.png)
 
@@ -266,15 +229,6 @@ pc_score_from_gram_matrix = np.diag(np.sqrt(w[:K])) @ v.T[:K]
 
 
 
-
-
-{% highlight python %}
-plt.plot(*np.real(pc_score_from_gram_matrix), '.')
-plt.axis('equal')
-maybe_save_plot('2018-05-20-from-gram')
-plt.show()
-{% endhighlight %}
-
 ![](/assets/2018-05-20-from-gram.png)
 
 
@@ -333,25 +287,6 @@ pc_scores_from_distance_matrix = MDS(distance_matrix, K)
 ## Viewing them all
 
 When I plot these, I expect the points to be in the same place, though they might be rotated.
-
-
-
-{% highlight python %}
-fig, axs = plt.subplots(1, 3, figsize=(12, 4), sharex=True, sharey=True)
-
-axs[0].plot(*pc_scores_from_X, '.')
-axs[0].set_title("Centered X")
-axs[0].axis('equal')
-
-axs[1].plot(*np.real(pc_score_from_gram_matrix), '.')
-axs[1].set_title("Gram matrix")
-
-axs[2].plot(*np.real(pc_scores_from_distance_matrix), '.')
-axs[2].set_title("Distance matrix")
-
-maybe_save_plot('2018-05-20-comparison')
-plt.show()
-{% endhighlight %}
 
 ![](/assets/2018-05-20-comparison.png)
 
@@ -427,53 +362,10 @@ locations = MDS(city_dist_matrix, K)
 
 Now I'll plot and label the states/provinces. I strip the city names out of the labels to make it a little easier to read.
 
-
-
-{% highlight python %}
-plt.clf()
-fig, ax = plt.subplots(1, 1, figsize=(16, 12))
-
-plt.plot(locations[0], locations[1], 'ok', alpha=.2)
-
-for label, xy in zip(city_labels, locations.T):
-    plt.annotate(label.split(',')[1].strip(), xy, fontsize=14)
-
-hide_ticks(ax)
-plt.axis('equal')
-    
-maybe_save_plot('2018-05-20-north-america')
-plt.show()
-{% endhighlight %}
-
 ![](/assets/2018-05-20-north-america.png)
 
 
 One more plotting alternative is to plot one label per state/province.
-
-
-
-{% highlight python %}
-state_or_province_labels = {}
-for i, label in enumerate(city_labels):
-    state_or_province = label.split(',')[1].strip()
-    # it's fine if we overwrite states
-    state_or_province_labels[state_or_province] = i
-
-plt.clf()
-fig, ax = plt.subplots(1, 1, figsize=(16, 12))
-
-plt.plot(locations[0], locations[1], 'ok', alpha=.2)
-
-annotation_subset = list(state_or_province_labels.values())
-for label, idx in state_or_province_labels.items():
-    plt.annotate(label, locations[:, idx], fontsize=16, weight='bold')
-
-hide_ticks(ax)
-plt.axis('equal')
-    
-maybe_save_plot('2018-05-20-north-america-per-state-province')
-plt.show()
-{% endhighlight %}
 
 ![](/assets/2018-05-20-north-america-per-state-province.png)
 

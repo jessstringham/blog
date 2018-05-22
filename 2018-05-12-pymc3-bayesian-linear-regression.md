@@ -15,22 +15,6 @@ I'm still a little fuzzy on how `pymc3` things work. Luckily it turns out that `
 
 
 
-{% highlight python %}
-import numpy as np
-import matplotlib.pyplot as plt
-import pymc3 as pm
-import theano.tensor as tt
-
-# helper functions you can skip over :D
-SAVE = False
-def maybe_save_plot(filename):
-    if SAVE:
-        plt.tight_layout()
-        plt.savefig('images/' + filename, bbox_inches="tight")
-{% endhighlight %}
-
-
-
 
 ## Data generation
 
@@ -66,19 +50,6 @@ Y = f(x) + noise
 
 
 
-
-
-
-{% highlight python %}
-x_grid = np.linspace(-1, 1, 100)[:, None]
-
-plt.figure(figsize=(12, 8))
-plt.plot(x_grid, f(x_grid), '--', alpha=0.5, label='true function')
-plt.plot(x, f(x) + noise, 'xk', markersize='12', label='observations')
-plt.legend()
-maybe_save_plot('2018-05-12-simulated-data')
-plt.show()
-{% endhighlight %}
 
 ![](/assets/2018-05-12-simulated-data.png)
 
@@ -152,17 +123,6 @@ Aside from the model set up, the action is already a little different! Before I 
 
 Next I can plot some of the slopes/intercepts sampled from the prior. It looks similar to the plots I got in my [last post]({% post_url 2018-01-03-bayesian-linreg %}).
 
-
-
-{% highlight python %}
-fig, ax = plt.subplots(figsize=(16, 8))
-
-for i in list(prior_trace):
-    ax.plot(x_grid, i['m'] * x_grid + i['b'], '-m', alpha=0.2)
-maybe_save_plot('2018-05-12-weight-samples')
-plt.show()
-{% endhighlight %}
-
 ![](/assets/2018-05-12-weight-samples.png)
 
 
@@ -196,20 +156,6 @@ Before, I used the [closed-form of the mean and variance]({% post_url 2018-01-09
 
 Using `pymc3`, I skip computing the posterior, and instead use clever methods to sample directly from the posterior. This is useful when the posterior is hard to compute.
 
-
-
-{% highlight python %}
-fig, ax = plt.subplots(figsize=(16, 8))
-
-for i in list(posterior_trace[:100]):
-    ax.plot(x_grid, i['m'] * x_grid + i['b'], '-m', alpha=0.2)
-
-ax.plot(x, Y, 'xk', markersize='12', label='observations')
-plt.legend()
-maybe_save_plot('2018-05-12-posterior')
-plt.show()
-{% endhighlight %}
-
 ![](/assets/2018-05-12-posterior.png)
 
 
@@ -219,9 +165,10 @@ plt.show()
 
 {% highlight python %}
 pm.traceplot(posterior_trace)
-maybe_save_plot('2018-05-12-trace')
-plt.show()
 {% endhighlight %}
+
+
+
 
 ![](/assets/2018-05-12-trace.png)
 

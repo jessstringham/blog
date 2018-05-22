@@ -13,30 +13,6 @@ This is a short post that continues from [the more-detailed alpha recursion HMM 
 
 
 
-{% highlight python %}
-import numpy as np
-import matplotlib.pyplot as plt
-
-import nb_code.hmm_alpha_recursion as prev_post
-{% endhighlight %}
-
-
-
-
-
-
-{% highlight python %}
-# helper functions you can skip over :D
-SAVE = True
-def maybe_save_plot(filename):
-    if SAVE:
-        plt.tight_layout()
-        plt.savefig('images/' + filename, bbox_inches="tight")
-
-def hide_ticks(plot):
-    plot.axes.get_xaxis().set_visible(False)
-    plot.axes.get_yaxis().set_visible(False)
-{% endhighlight %}
 
 
 
@@ -146,45 +122,6 @@ print(most_likely_states)
 ## Visualizing
 
 I can plot the most-likely states.
-
-
-
-{% highlight python %}
-fig, all_axs = plt.subplots(4, prev_post.timesteps, figsize=(16, 4))
-all_axs = all_axs.T
-
-VISIBLES = 0
-TRUE_STATES = 1
-FILTERING = 2
-VITERBI = 3
-
-all_axs[0][VISIBLES].set_title('Visibles', x=-0.5, y=0.2)
-all_axs[0][TRUE_STATES].set_title('Actual', x=-0.5, y=0.4)
-all_axs[0][FILTERING].set_title('Filtering', x=-0.5, y=0.4)
-all_axs[0][VITERBI].set_title('Viterbi', x=-0.5, y=0.4)
-
-for i, (axs, hidden, visible, alpha, viterbi) in enumerate(zip(
-    all_axs, 
-    prev_post.hiddens, 
-    prev_post.visibles, 
-    prev_post.alphas,
-    most_likely_states,
-)):
-    axs[VISIBLES].imshow([prev_post.map_visible_state_to_bump_creak[visible]], cmap='gray', vmin=0)
-    hide_ticks(axs[VISIBLES])    
-    
-    axs[TRUE_STATES].imshow(prev_post.plot_state_in_room(hidden), cmap='gray')
-    hide_ticks(axs[TRUE_STATES])
-    
-    axs[FILTERING].imshow(alpha.reshape(prev_post.height, prev_post.width))
-    hide_ticks(axs[FILTERING])      
-
-    axs[VITERBI].imshow(prev_post.plot_state_in_room(viterbi), cmap='gray')
-    hide_ticks(axs[VITERBI])   
-    
-maybe_save_plot('2018-05-13-viterbi')
-plt.show()
-{% endhighlight %}
 
 ![](/assets/2018-05-13-viterbi.png)
 

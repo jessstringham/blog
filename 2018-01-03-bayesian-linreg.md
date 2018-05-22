@@ -28,21 +28,6 @@ In this post, I'll just show how to sample a couple \\(w\\) and \\(b\\) from a 2
 
 
 
-{% highlight python %}
-# imports!
-import numpy as np
-import matplotlib.pyplot as plt
-
-# helper functions you can skip over :D
-SAVE = False
-def maybe_save_plot(filename):
-    if SAVE:
-        plt.tight_layout()
-        plt.savefig('images/' + filename, bbox_inches="tight")
-{% endhighlight %}
-
-
-
 
 ## Sampling from the prior
 
@@ -78,18 +63,18 @@ V_0 = np.diag([sigma_b, sigma_w])**2
 # Phew. Here's the part where I sample from the prior!
 w = np.random.randn(line_count, D) @ V_0 + w_0
 
-# And now plot it!
-plt.figure(figsize=(16, 8))
-plt.plot(x_grid, X @ w.T, '-m', alpha=.2)
-plt.show()
+y = X @ w.T
 {% endhighlight %}
+
+
+
 
 
 
 
 ### Examples
 
-Adjusting `sigma_b` changes the most likely y-intercept. A small `sigma_b` makes more points go through the origin (top), and a large `sigma_b` makes points spread out more.
+Adjusting `sigma_b` changes the most likely y-intercept. A small `sigma_b` makes more points go through the origin (top), and a large `sigma_b` makes points spread out more. And by setting the \\(\mu\\), it makes the slopes and intercepts usually near that value.
 
 
 
@@ -112,54 +97,7 @@ def sample_prior_weights(x_grid, mu_w=0, mu_b=0, sigma_w=0.2, sigma_b=0.2):
 
 
 
-`sigma_w = 0.2`
-
-
-
-{% highlight python %}
-y = sample_prior_weights(x_grid, sigma_w=0.2)
-
-plt.figure(figsize=(16, 8))
-plt.plot(x_grid, y, '-m', alpha=.2)
-maybe_save_plot('2018-01-03-small-w')  # small w variance
-plt.show()
-{% endhighlight %}
-
-![small w variance](/assets/2018-01-03-small-w.png)
-
-
-`sigma_w = 1.0`
-
-
-
-{% highlight python %}
-y = sample_prior_weights(x_grid, sigma_w=1.0)
-
-plt.figure(figsize=(16, 8))
-plt.plot(x_grid, y, '-m', alpha=.2)
-maybe_save_plot('2018-01-03-big-w')
-plt.show()
-{% endhighlight %}
-
-![](/assets/2018-01-03-big-w.png)
-
-
-And by setting the \\(\mu\\), it makes the slopes and intercepts usually near that value.
-
-`mu_w = 0.5`
-
-
-
-{% highlight python %}
-y = sample_prior_weights(x_grid, mu_w=0.5)
-
-plt.figure(figsize=(16, 8))
-plt.plot(x_grid, y, '-m', alpha=.2)
-maybe_save_plot('2018-01-03-big-muw')  # big w variance
-plt.show()
-{% endhighlight %}
-
-![big w variance](/assets/2018-01-03-big-muw.png)
+![small w variance](/assets/2018-01-03-different-w.png)
 
 
 ## What's next?

@@ -17,21 +17,6 @@ For example, say it's too expensive to sample from \\( p(x_0, x_1, x_2, ..., x_d
 
 
 
-{% highlight python %}
-# imports!
-import numpy as np
-import matplotlib.pyplot as plt
-
-# helper functions you can skip over :D
-SAVE = False
-def maybe_save_plot(filename):
-    if SAVE:
-        plt.tight_layout()
-        plt.savefig('images/' + filename, bbox_inches="tight")
-{% endhighlight %}
-
-
-
 
 ## Data generation
 
@@ -72,12 +57,10 @@ N = 10000
 
 L = np.linalg.cholesky(joint_cov)
 samples_from_true_distribution =  L @ np.random.randn(D, N) + joint_mu
-
-plt.plot(*samples_from_true_distribution, '.', alpha=0.1)
-plt.axis([-4, 4, -4, 4])
-maybe_save_plot('2018-05-09-joint')
-plt.show()
 {% endhighlight %}
+
+
+
 
 ![](/assets/2018-05-09-joint.png)
 
@@ -213,43 +196,14 @@ One thing to keep in mind about Gibbs sampling is that it only updates one dimen
 
 {% highlight python %}
 samples = gibbs_sample(univariate_conditionals, sample_count=100)
-
-fig, ax = plt.subplots()
-
-ax.plot(*samples_from_true_distribution, '.', alpha=0.1)
-ax.plot(*samples, 'k')
-ax.plot(*samples, '.r')
-ax.axis('square')
-maybe_save_plot('2018-05-09-gibbs-100')
-plt.show()
 {% endhighlight %}
+
+
+
 
 ![](/assets/2018-05-09-gibbs-100.png)
 
 
 Now I can also sample a bunch of points and see how it compares to the original distribution. It looks the same! What's cool is that the one using Gibbs sampling only used samples from the univariate conditionals!
-
-
-
-{% highlight python %}
-samples = gibbs_sample(univariate_conditionals, sample_count=N)
-
-fig, axs = plt.subplots(1, 3, figsize=(12, 4), sharex=True, sharey=True)
-
-# set all the axes
-axs[0].axis([-4, 4, -4, 4])
-
-axs[0].plot(*samples_from_true_distribution, '.', alpha=0.1)
-axs[0].set_title('original p(a, b)')
-
-axs[1].plot(*samples, 'k', alpha=0.8)
-axs[1].set_title('gibbs sampling path')
-
-axs[2].plot(*samples, '.g', alpha=0.1)
-axs[2].set_title('gibbs samples')
-
-maybe_save_plot('2018-05-09-gibbs-samples')
-plt.show()
-{% endhighlight %}
 
 ![](/assets/2018-05-09-gibbs-samples.png)

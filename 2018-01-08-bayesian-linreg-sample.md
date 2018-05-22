@@ -43,21 +43,6 @@ I'm going to use numpy and matplotlib.
 
 
 
-{% highlight python %}
-import numpy as np
-import matplotlib.pyplot as plt
-
-
-# helper functions you can skip over :D
-SAVE = True
-def maybe_save_plot(filename):
-    if SAVE:
-        plt.tight_layout()
-        plt.savefig('images/' + filename, bbox_inches="tight")
-{% endhighlight %}
-
-
-
 
 ### Choose x values
 
@@ -209,19 +194,6 @@ noise = true_sigma_y * np.random.randn(x.shape[0], 1)
 
 And finally to plot this
 
-
-
-{% highlight python %}
-full_x = np.arange(-1, 1, 0.01)
-
-plt.figure(figsize=(12, 8))
-plt.plot(full_x, f2(full_x[:, None]), '--', alpha=0.5, label='true function')
-plt.plot(x, f2(x) + noise, 'xk', markersize='12', label='observations')
-plt.legend()
-maybe_save_plot('2018-01-08-linear-sample-example')  # linear function with x's marking samples
-plt.show()
-{% endhighlight %}
-
 ![linear function with x's marking samples](/assets/2018-01-08-linear-sample-example.png)
 
 
@@ -265,17 +237,10 @@ x = 2 * np.random.rand(11, 1) - 1
 true_sigma_y = 0.01
 noise = true_sigma_y * np.random.randn(x.shape[0], 1)
 y = f3(x) + noise
-
-# For plotting the full function
-full_x = np.linspace(-1, 1, 100)[:, None]
-
-plt.figure(figsize=(12, 8))
-plt.plot(full_x, f3(full_x), '--', alpha=0.5, label='true function')
-plt.plot(x, y, 'xk', markersize='12', label='observations')
-plt.legend()
-maybe_save_plot('2018-01-08-sigmoid')
-plt.show()
 {% endhighlight %}
+
+
+
 
 ![](/assets/2018-01-08-sigmoid.png)
 

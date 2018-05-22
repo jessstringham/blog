@@ -432,11 +432,11 @@ plt.figure(figsize=(8, 6))
 plot_sigmoid(plt, log_reg_optimizer_result.x, fuzzy_data, fuzzy_labels)  
 plot_labeled_data(plt, fuzzy_data, fuzzy_labels)
 plt.axis('square')
-maybe_save_plot('2018-05-22-2d-sigmoid')
+maybe_save_plot('2018-05-22-fitted-weights')
 plt.show()
 {% endhighlight %}
 
-![](/assets/2018-05-22-2d-sigmoid.png)
+![](/assets/2018-05-22-fitted-weights.png)
 
 
 ## Regularization

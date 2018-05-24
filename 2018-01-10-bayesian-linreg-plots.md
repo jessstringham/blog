@@ -5,7 +5,7 @@ layout: post
 mathjax: true
 ---
 
-[This post is also a Jupyter notebook!](https://github.com/jessstringham/blog/tree/master/notebooks/2018-01-10-bayesian-linreg-plots.ipynb)
+[This post is also a Jupyter notebook!](https://github.com/jessstringham/notebooks/tree/master/2018-01-10-bayesian-linreg-plots.ipynb)
 
 
 

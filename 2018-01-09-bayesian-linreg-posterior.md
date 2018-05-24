@@ -5,7 +5,7 @@ layout: post
 mathjax: true
 ---
 
-[This post is also a Jupyter notebook!](https://github.com/jessstringham/blog/tree/master/notebooks/2018-01-09-bayesian-linreg-posterior.ipynb)
+[This post is also a Jupyter notebook!](https://github.com/jessstringham/notebooks/tree/master/2018-01-09-bayesian-linreg-posterior.ipynb)
 
 
 

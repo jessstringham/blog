@@ -296,7 +296,7 @@ When I plot these, I expect the points to be in the same place, though they migh
 Inspired by [this video](https://www.youtube.com/watch?v=qZ_QHXJ29iw) let's try MDS using the distances between cities. 
 
 [This website](https://people.sc.fsu.edu/~jburkardt/datasets/cities/cities.html) has data in this form. (Heads up, it's licensed under [GNU LGPL](https://people.sc.fsu.edu/~jburkardt/txt/gnu_lgpl.txt))
-I'll use one of the datasets that measure distances using latitude/longitude, rather than road distance. USCA312 is a dataset of 312 cities in the US and Canada.
+I'll use one of the datasets that measure distances using latitude/longitude, rather than road distance. USCA312 is a dataset of 312 cities in the US and Canada. This MDS approach assumes Euclidean distances, but distances between locations on Earth are non-Euclidean, so there will be some approximation.
 
 I'll first download the data and process it.
 

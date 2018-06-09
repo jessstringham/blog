@@ -1,5 +1,5 @@
 ---
-title: First steps with Elasticsearch, searching books
+title: First steps with Elasticsearch, searching book catalog
 tags: [projects]
 layout: post
 ---

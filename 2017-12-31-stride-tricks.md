@@ -1,5 +1,5 @@
 ---
-title: "Part 1 of numpy tricks from convolutions: stride_tricks"
+title: "Implementing convolutions with stride_tricks"
 tags: ['machine learning concept demo']
 layout: post
 display_image: 2017-12-31-still-strided.png

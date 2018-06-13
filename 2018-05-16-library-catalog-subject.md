@@ -3,9 +3,9 @@ title: 'Plotting Library Catalog Subjects'
 tags: [jupyter, projects]
 layout: post
 mathjax: true
+ipynb: https://github.com/jessstringham/notebooks/tree/master/2018-05-16-library-catalog-subject.ipynb
 ---
 
-[This post is also a Jupyter notebook!](https://github.com/jessstringham/notebooks/tree/master/2018-05-16-library-catalog-subject.ipynb)
 
 
 

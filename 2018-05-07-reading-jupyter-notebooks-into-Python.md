@@ -3,9 +3,9 @@ title: 'Reading Jupyter notebooks into Python'
 tags: [jupyter]
 layout: post
 mathjax: true
+ipynb: https://github.com/jessstringham/notebooks/tree/master/2018-05-07-reading-jupyter-notebooks-into-Python.ipynb
 ---
 
-[This post is also a Jupyter notebook!](https://github.com/jessstringham/notebooks/tree/master/2018-05-07-reading-jupyter-notebooks-into-Python.ipynb)
 
 
 

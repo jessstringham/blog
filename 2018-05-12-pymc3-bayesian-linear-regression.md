@@ -3,9 +3,9 @@ title: 'Bayesian linear regression with `pymc3`'
 tags: [jupyter, machine learning concept demo]
 layout: post
 mathjax: true
+ipynb: https://github.com/jessstringham/notebooks/tree/master/2018-05-12-pymc3-bayesian-linear-regression.ipynb
 ---
 
-[This post is also a Jupyter notebook!](https://github.com/jessstringham/notebooks/tree/master/2018-05-12-pymc3-bayesian-linear-regression.ipynb)
 
 
 

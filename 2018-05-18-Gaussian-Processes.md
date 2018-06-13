@@ -3,9 +3,9 @@ title: 'Regression with Gaussian Processes'
 tags: [jupyter, machine learning concept demo]
 layout: post
 mathjax: true
+ipynb: https://github.com/jessstringham/notebooks/tree/master/2018-05-18-Gaussian-Processes.ipynb
 ---
 
-[This post is also a Jupyter notebook!](https://github.com/jessstringham/notebooks/tree/master/2018-05-18-Gaussian-Processes.ipynb)
 
 
 

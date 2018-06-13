@@ -3,9 +3,9 @@ title: 'Bayesian Linear Regression part 4: Plots'
 tags: [jupyter, machine learning concept demo]
 layout: post
 mathjax: true
+ipynb: https://github.com/jessstringham/notebooks/tree/master/2018-01-10-bayesian-linreg-plots.ipynb
 ---
 
-[This post is also a Jupyter notebook!](https://github.com/jessstringham/notebooks/tree/master/2018-01-10-bayesian-linreg-plots.ipynb)
 
 
 

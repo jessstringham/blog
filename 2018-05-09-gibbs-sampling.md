@@ -3,9 +3,9 @@ title: 'Gibbs Sampling in Python'
 tags: [jupyter, machine learning concept demo]
 layout: post
 mathjax: true
+ipynb: https://github.com/jessstringham/notebooks/tree/master/2018-05-09-gibbs-sampling.ipynb
 ---
 
-[This post is also a Jupyter notebook!](https://github.com/jessstringham/notebooks/tree/master/2018-05-09-gibbs-sampling.ipynb)
 
 
 

@@ -3,9 +3,9 @@ title: 'Climate classification with neural networks'
 tags: [jupyter, projects]
 layout: post
 mathjax: true
+ipynb: https://github.com/jessstringham/notebooks/tree/master/2018-06-11-climate-classification-with-neural-nets.ipynb
 ---
 
-[This post is also a Jupyter notebook!](https://github.com/jessstringham/notebooks/tree/master/2018-06-11-climate-classification-with-neural-nets.ipynb)
 
 
 

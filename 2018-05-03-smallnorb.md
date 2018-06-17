@@ -2,6 +2,7 @@
 title: SmallNORB notebook
 tags: [numpy, jupyter]
 layout: post
+display_image: /assets/2018-05-03-ex.png
 ---
 
 [Like the last post, this post is mostly a redirect to a notebook](https://github.com/jessstringham/blog/blob/master/notebooks/2018-05-03-SmallNORB.ipynb).

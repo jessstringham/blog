@@ -2,6 +2,7 @@
 title: Tour of digitized notes in Jupyter
 tags: [note-taking]
 layout: post
+display_image: /assets/2018-05-06-nb-ex.png
 ---
 
 This post is a tour of my notebook system's frontend. See [Digitizing notes as a learning tool]({% post_url 2018-05-06-studying %}) for a description of the project.

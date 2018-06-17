@@ -3,6 +3,7 @@ title: 'Gibbs Sampling in Python'
 tags: [jupyter, machine learning concept demo]
 layout: post
 mathjax: true
+display_image: /assets/2018-05-09-gibbs-100.png
 ipynb: https://github.com/jessstringham/notebooks/tree/master/2018-05-09-gibbs-sampling.ipynb
 ---
 

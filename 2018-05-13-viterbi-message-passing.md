@@ -3,6 +3,7 @@ title: 'Inference in Hidden Markov Models continued: Viterbi Algorithm'
 tags: [jupyter, machine learning concept demo]
 layout: post
 mathjax: true
+display_image: /assets/2018-05-13-ex.png
 ipynb: https://github.com/jessstringham/notebooks/tree/master/2018-05-13-viterbi-message-passing.ipynb
 ---
 

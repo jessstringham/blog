@@ -2,6 +2,7 @@
 title: 'Daylight Project: Part 2, travel.org'
 tags: [projects, emacs, org-mode]
 layout: post
+display_image: /assets/2016-12-21-ex.png
 ---
 
 I made a visualization of the length of the day in the cities I've
@@ -94,13 +95,13 @@ and watch the file transform in the process.
     :City:      us__seattle__wa
     :DateRange: [2010-01-01]--[2010-02-01]
     :END:
-    
+
     *** Portland
     :PROPERTIES:
     :City:      us__portland__or
     :DateRange: [2010-02-01]--[2010-03-01]
     :END:
-        
+
     *** Vancouver
     :PROPERTIES:
     :City:      ca__vancouver
@@ -123,19 +124,19 @@ wanted to check the new data for mistakes.
     :DateRange: [2010-01-01]--[2010-02-01]
     :City:     us__seattle__wa
     :END:
-    
+
     *** Portland
     :PROPERTIES:
     :DateRange: [2010-02-01]--[2010-03-01]
     :City:     us__portland__or
     :END:
-    
+
     *** Vancouver
     :PROPERTIES:
     :DateRange: [2010-03-01]--[2010-04-01]
     :City:     obvious_typo
     :END:
-    
+
 into something like:
 
     #+COLUMNS:  %DateRange %City %10ITEM
@@ -180,7 +181,7 @@ org-entry-get accesses information about the header the cursor is on.
 In writing these functions, I found myself reading Elisp documentation
 and digging through source code.
 
-You can open documentation for an Elisp function with `C-h f` and `C-h v`. 
+You can open documentation for an Elisp function with `C-h f` and `C-h v`.
 
 Sometimes it's useful to dive into the source code itself. It's linked
 to from the top of each entry, like "org.el" in
@@ -202,17 +203,17 @@ wrap it in a specially-named function.
 Then I added a dynamic block to `travel.org`.
 
     #+BEGIN: block-jessicas-check-date-overlap
-    
+
     #+END:
-    
+
 I enter `C-c C-c` to updated the block. Emacs executes the function
 and replaces the block contents with the output of my program.
 
     #+BEGIN: block-jessicas-check-date-overlap
     2010-03-01
     #+END:
-    
-    
+
+
 ### 7. Using Python
 
 I had a text file that mapped the world's cities to coordinates, and I
@@ -226,7 +227,7 @@ component in Python, and wrote Elisp to call Python
        (format "python travel/lookup_id.py --data '%s'"
                (join-strings-with-newlines
                 (get-cities)))))
-    
+
 
 [Ergoemacs](http://ergoemacs.org/emacs/elisp_perl_wrapper.html)
 provides more examples of how to do this.

@@ -3,6 +3,7 @@ title: 'Logistic Regression'
 tags: [jupyter, machine learning concept demo]
 layout: post
 mathjax: true
+display_image: /assets/2018-05-22-fitted-weights.png
 ipynb: https://github.com/jessstringham/notebooks/tree/master/2018-05-22-logistic-regression.ipynb
 ---
 

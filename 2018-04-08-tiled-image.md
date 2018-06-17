@@ -2,6 +2,7 @@
 title: Pasta machine processing images with numpy
 tags: [numpy]
 layout: post
+display_image: /assets/2018-04-08-ex.png
 ---
 
 ![Tiled cat image](/assets/2018-04-08-lizzy-header.png)

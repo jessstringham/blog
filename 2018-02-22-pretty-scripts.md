@@ -2,6 +2,7 @@
 title: Pretty scripts with Python's print statement
 tags: [bash]
 layout: post
+display_image: /assets/2018-02-22-ex.png
 ---
 
 ![List of experiment runs, with little checkboxes](/assets/2018-02-22-run-list.png)

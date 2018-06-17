@@ -3,6 +3,7 @@ title: 'Inference in discrete state Hidden Markov Models using numpy'
 tags: [jupyter, machine learning concept demo]
 layout: post
 mathjax: true
+display_image: /assets/2018-05-02-ex.png
 ipynb: https://github.com/jessstringham/notebooks/tree/master/2018-05-02-hmm-alpha-recursion.ipynb
 ---
 

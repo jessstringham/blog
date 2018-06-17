@@ -4,6 +4,7 @@ tags: [jupyter, ML]
 layout: post
 mathjax: true
 location: Edinburgh
+display_image: /assets/2018-05-04-ex.png
 ---
 
 [This post comes with a notebook!](https://github.com/jessstringham/blog/blob/master/notebooks/2018-05-04-ipywidgets-for-learning-logistic-sigmoid-and-bayes-classifiers.ipynb)

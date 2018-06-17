@@ -2,6 +2,7 @@
 title: 'Daylight Project: Part 1, the result'
 tags: [projects]
 layout: post
+display_image: /assets/2016-12-14-ex.png
 ---
 
 ![daylight](/assets/2016-12-21-daylight.png)
@@ -38,7 +39,7 @@ like a bunch of those above graphs squashed together, like a piecewise
 function.
 
 ![many years of daylight](/assets/2016-12-21-daylight.png)
- 
+
 It especially highlights things like when I moved to California, or
 when I visited Tromsø and the sun didn't come up.
 

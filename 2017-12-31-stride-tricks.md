@@ -2,7 +2,7 @@
 title: "Implementing convolutions with stride_tricks"
 tags: ['machine learning concept demo']
 layout: post
-display_image: 2017-12-31-still-strided.png
+display_image: /assets/2017-12-31-still-strided.png
 ---
 
 ![Strided](/assets/2017-12-31-strided.gif)

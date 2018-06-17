@@ -2,12 +2,13 @@
 title: Talking LED
 tags: [raspberrypi]
 layout: post
+display_image: /assets/2016-11-07-pixels.png
 ---
 
 I'm working with a Raspberry Pi for a project. For my "Hello World"
 project, _Raspberry Pi edition_, I set up a LED and programmed it to
 blink.  For a part of the main project, I had the Raspberry Pi read
-words in the lovely robot voice of `espeak`. 
+words in the lovely robot voice of `espeak`.
 
 I thought what so many people before me have: Can I put these two
 together? Can I make that little LED blink with the words?
@@ -51,7 +52,7 @@ play audio through Python. PyAudio provided a nice
 [starter script](http://people.csail.mit.edu/hubert/pyaudio/) on its
 site, that provided most of the code for this project.
 
-The basic strategy is: 
+The basic strategy is:
 
 1. Read a part of the WAV file using `wave`.
 2. Process that data to determine how bright to make the LED.
@@ -145,7 +146,7 @@ rounded up or down (I think this is quantization). Then I can
 represent this whole waveform in a list of numbers, like
 `[4, 1, 0, 2, 6, 7, 4, 1, 0, 2, 6, 7, 4, 1, 0, 2]`
 
-In Python's `wave`, each amplitude sample, like `4`, is called a frame. 
+In Python's `wave`, each amplitude sample, like `4`, is called a frame.
 
 In the code, `wf.readframes(1024)` gives me the amplitude of
 1,024 samples.  For my project, I want to average the amplitudes of
@@ -158,11 +159,11 @@ First though, I need to make sense of the raw data of
 
 Pulse-code modulation WAV represents waves as a list of numbers in
 a stream of bits. The amplitude samples above looked like
-`[4, 1, 0, 2, 6, 7, ...]`. 
+`[4, 1, 0, 2, 6, 7, ...]`.
 
 Let's say I want to send you these numbers as a bitstream. First, I'd
 change `[4, 1, 0, 2, 6, 7, ...]` to bits, like `100 001 000 010 110 111`, and I'd
-ditch the spaces and get something like `100001000010110111`. 
+ditch the spaces and get something like `100001000010110111`.
 
 When you start getting the stream of bits, `100001000010110111`, you'd want to
 know if you should read it as
@@ -222,7 +223,7 @@ So I should be able to graph it!
 
 ![Graph of robot voice sound wave](/assets/2016-11-07-real.png)
 
-Neat! 
+Neat!
 
 The last step is turning that wiggly line into how bright the LED
 should be when playing this sound bite. A higher amplitude means the

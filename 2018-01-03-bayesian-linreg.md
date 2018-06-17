@@ -3,6 +3,7 @@ title: 'Bayesian Linear Regression part 1: plotting samples from the weight prio
 tags: [jupyter, machine learning concept demo]
 layout: post
 mathjax: true
+display_image: /assets/2018-01-03-different-w.png
 ipynb: https://github.com/jessstringham/notebooks/tree/master/2018-01-03-bayesian-linreg.ipynb
 ---
 

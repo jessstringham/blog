@@ -3,6 +3,7 @@ title: 'Multidimensional Scaling'
 tags: [jupyter, machine learning concept demo]
 layout: post
 mathjax: true
+display_image: /assets/2018-05-20-ex.png
 ipynb: https://github.com/jessstringham/notebooks/tree/master/2018-05-20-Multidimensional-Scaling.ipynb
 ---
 

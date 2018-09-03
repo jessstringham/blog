@@ -3,7 +3,7 @@ title: Narvik and Kiruna
 tags: [travel]
 layout: post
 location: Oregon
-display_image: /assets/2018-01-04-ex.png
+display_image: /assets/2018-01-04-ex.jpeg
 ---
 
 ![Climbing down a slope above Norwegian fjords.](/assets/2018-01-04-narvik.jpg)

@@ -169,9 +169,9 @@ def optimize_kl_divergence(bin_location, real_dist, iterations=100, learning_rat
     
     # This let's us switch whether we want the real distribution as Q or P.
     if find_kl_q_p:
-        kl_div = tf_kl_divergence(q=real_dist_placeholder, p=approx_dist_op)
+        kl_div = tf_kl_divergence(p=approx_dist_op, q=real_dist_placeholder)
     else:
-        kl_div = tf_kl_divergence(q=approx_dist_op, p=real_dist_placeholder)
+        kl_div = tf_kl_divergence(p=real_dist_placeholder, q=approx_dist_op)
     
     loss_op = kl_div
     
@@ -204,7 +204,7 @@ def optimize_kl_divergence(bin_location, real_dist, iterations=100, learning_rat
 ![](/assets/2018-12-27-minimizing.png)
 
 
-It's also neat to plot how the distribution moves!
+It's also neat to plot how the distribution shifts as it improves!
 
 ![](/assets/2018-12-27-learning.png)
 
@@ -218,6 +218,6 @@ Finally, I can compare the \\( Q \\) that minimizes \\( KL(Q \mid\mid P) \\) to 
 
 ## See Also
 
- - Chapter 10 of Bishop's PRML talks about Variational Inference and 2D bimodal examples!
+ - Chapter 10 of Bishop's PRML talks about Variational Inference and has examples using bimodal distributions over two dimensions.
  - Another example of dealing with difficult distributions is using [Gibbs Sampling](/2018/05/09/gibbs-sampling.html)!
  - KL Divergence is used in [Variational Methods](https://en.wikipedia.org/wiki/Calculus_of_variations) like that used in [Variational Inference](https://en.wikipedia.org/wiki/Variational_Bayesian_methods), which is similar to [Expectation-Maximization](https://en.wikipedia.org/wiki/Expectation–maximization_algorithm#Relation_to_variational_Bayes_methods).

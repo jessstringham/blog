@@ -432,7 +432,7 @@ We made it! Now we can implement sum-product message passing.
 
 Sum-product message passing will compute values ("messages") for every edge in the factor graph.
 
-![](/assets/2019-01-08-factor-graph.png)
+![](/assets/2019-01-09-factor-graph.png)
 
 The algorithm will compute a message from the Factor \\( f \\) to the Variable \\( x \\), notated as \\( \mu_{f \to x}(x) \\). It will also compute the value from Variable \\( x \\) to the Factor \\( f \\), \\( \mu_{x \to f}(x) \\). As is common in graph algorithms, these are defined recursively.
 

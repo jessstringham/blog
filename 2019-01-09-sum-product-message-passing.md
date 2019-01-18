@@ -1,5 +1,5 @@
 ---
-title: 'Implementing the Sum-Product Message Passing'
+title: 'Implementing Sum-Product Message Passing'
 tags: [jupyter, machine learning concept demo]
 layout: post
 mathjax: true

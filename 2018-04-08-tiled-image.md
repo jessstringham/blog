@@ -1,6 +1,6 @@
 ---
 title: Pasta machine processing images with numpy
-tags: [numpy]
+tags: [python, numpy]
 layout: post
 display_image: /assets/2018-04-08-ex.png
 ---

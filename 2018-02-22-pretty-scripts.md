@@ -1,6 +1,6 @@
 ---
 title: Pretty scripts with Python's print statement
-tags: [bash]
+tags: [bash, python]
 layout: post
 display_image: /assets/2018-02-22-ex.png
 ---

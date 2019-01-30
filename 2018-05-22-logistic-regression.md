@@ -98,7 +98,7 @@ def sigmoid_with_bias(bias_and_weights, x):
 ![](/assets/2018-05-22-sigmoid.png)
 
 
-*(Oh hey, my [ipywidgets post](https://github.com/jessstringham/blog/blob/master/notebooks/2018-05-04-ipywidgets-for-learning-logistic-sigmoid-and-bayes-classifiers.ipynb) has an interactive example of how the weights and bias influence the shape of the sigmoid.)*
+*(Oh hey, my [ipywidgets post](https://github.com/jessstringham/notebooks/blob/master/2018-05-04-ipywidgets-for-learning-logistic-sigmoid-and-bayes-classifiers.ipynb) has an interactive example of how the weights and bias influence the shape of the sigmoid.)*
 
 ### Sigmoid with two input variables
 

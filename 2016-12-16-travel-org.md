@@ -1,6 +1,6 @@
 ---
 title: 'Daylight Project: Part 2, travel.org'
-tags: [projects, emacs, org-mode]
+tags: [project, emacs, org-mode]
 layout: post
 display_image: 2016-12-21-daylight.png
 ---

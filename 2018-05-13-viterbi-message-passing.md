@@ -131,4 +131,4 @@ I can plot the most-likely states.
 
  - [This post]({% post_url 2018-05-13-viterbi-message-passing %}) builds on this post to show the Viterbi algorithm.
  - [The more-detailed alpha recursion HMM post]({% post_url 2018-05-02-hmm-alpha-recursion %}).
- - [This notebook](https://github.com/jessstringham/blog/blob/master/notebooks/2018-05-13-hmm-check-results.ipynb) runs this code using the same example from Barber.
+ - [This notebook](https://github.com/jessstringham/notebooks/blob/master/2018-05-13-hmm-check-results.ipynb) runs this code using the same example from Barber.

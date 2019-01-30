@@ -1,6 +1,6 @@
 ---
 title: 'Daylight Project: Part 1, the result'
-tags: [projects]
+tags: [project]
 layout: post
 display_image: 2016-12-21-daylight.png
 ---

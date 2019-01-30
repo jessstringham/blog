@@ -1,9 +1,9 @@
 ---
 title: 'Plotting Library Catalog Subjects'
-tags: [jupyter, projects]
+tags: [jupyter, project, projects]
 layout: post
 mathjax: true
-display_image: /assets/2018-05-16-ex.png
+display_image: 2018-05-16-ex.png
 ipynb: https://github.com/jessstringham/notebooks/tree/master/2018-05-16-library-catalog-subject.ipynb
 ---
 
@@ -33,7 +33,7 @@ The way I think of this is that if I can tell the model that "Best friends Ficti
 
 ### Vector representations
 
-In NLP-land, "distributional methods" assume that "Words that occur in similar contexts tend to have similar meanings" (from [Jurafsky and Martin's textbook](http://web.stanford.edu/~jurafsky/slp3/15.pdf)). I think distributional methods would make interesting representations of library catalog subjects.
+In NLP-land, "distributional methods" assume that "Words that occur in similar contexts tend to have similar meanings" (from [Jurafsky and Martin's textbook](http://web.stanford.edu/~jurafsky/slp3/6.pdf)). I think distributional methods would make interesting representations of library catalog subjects.
 One way to turn this into word vectors is to make sparse vectors of metrics based on co-occurring words, and then reduce the number of dimensions to get a dense vector.
 
 
@@ -49,7 +49,7 @@ Raw co-occurrence counts and relative frequencies have some issues. For word vec
 
 At this point, I'll have sparse vectors of length `Number of subjects` (~150K) that represent each of my interesting subjects. I'll use PCA to reduce the number of dimensions. Dimensionality reduction is really cool! By reducing the number of dimensions in a clever way, the vector might represent higher-order co-occurrence. [Here's a post on reducing dimensions using SVD]({% post_url 2018-05-16-SVD-demo %}).
 
-This was a quick introduction to dense vectors. Check out [Vector Semantics](https://web.stanford.edu/~jurafsky/slp3/15.pdf) and [Semantics with Dense Vectors](https://web.stanford.edu/~jurafsky/slp3/16.pdf) for details!
+This was a quick introduction to dense vectors. Check out [Vector Semantics](https://web.stanford.edu/~jurafsky/slp3/6.pdf) for details!
 
 ## Preprocessing
 

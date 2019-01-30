@@ -1,6 +1,6 @@
 ---
 title: Podcast Player, overview
-tags: [projects]
+tags: [project]
 layout: post
 ---
 

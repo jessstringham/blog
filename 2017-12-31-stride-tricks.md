@@ -1,8 +1,8 @@
 ---
 title: "Implementing convolutions with stride_tricks"
-tags: ['machine learning concept demo']
+tags: ['machine learning concept demo', project]
 layout: post
-display_image: /assets/2017-12-31-still-strided.png
+display_image: 2017-12-31-still-strided.png
 ---
 
 ![Strided](/assets/2017-12-31-strided.gif)

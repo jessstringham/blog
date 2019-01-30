@@ -1,8 +1,8 @@
 ---
 title: Talking LED
-tags: [raspberrypi]
+tags: [raspberrypi, project]
 layout: post
-display_image: /assets/2016-11-07-pixels.png
+display_image: 2016-11-07-pixels.png
 ---
 
 I'm working with a Raspberry Pi for a project. For my "Hello World"

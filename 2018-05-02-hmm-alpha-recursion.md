@@ -1,9 +1,9 @@
 ---
 title: 'Inference in discrete state Hidden Markov Models using numpy'
-tags: [jupyter, machine learning concept demo]
+tags: [jupyter, project, machine learning concept demo]
 layout: post
 mathjax: true
-display_image: /assets/2018-05-02-ex.png
+display_image: 2018-05-02-ex.png
 ipynb: https://github.com/jessstringham/notebooks/tree/master/2018-05-02-hmm-alpha-recursion.ipynb
 ---
 
@@ -516,4 +516,4 @@ Again, but with the predictions!
 ## See Also
 
  - [This post]({% post_url 2018-05-13-viterbi-message-passing %}) builds on this post to show the Viterbi algorithm.
- - [This notebook](https://github.com/jessstringham/blog/blob/master/notebooks/2018-05-13-hmm-check-results.ipynb) runs this code using the same example from Barber.
+ - [This notebook](https://github.com/jessstringham/notebooks/blob/master/2018-05-13-hmm-check-results.ipynb) runs this code using the same example from Barber.

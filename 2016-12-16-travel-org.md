@@ -2,7 +2,7 @@
 title: 'Daylight Project: Part 2, travel.org'
 tags: [projects, emacs, org-mode]
 layout: post
-display_image: /assets/2016-12-21-ex.png
+display_image: 2016-12-21-daylight.png
 ---
 
 I made a visualization of the length of the day in the cities I've

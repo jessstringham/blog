@@ -1,8 +1,8 @@
 ---
 title: Illustration of max-pooling in NLP
-tags: [ML]
+tags: [ML, project]
 layout: post
-display_image: /assets/2018-12-30-ex2.png
+display_image: 2018-12-30-ex2.png
 ---
 
 This is another quick post derived from [my thesis post]({% post_url 2018-12-30-thesis %}).

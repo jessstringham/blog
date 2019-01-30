@@ -1,9 +1,9 @@
 ---
 title: 'Bayesian Linear Regression part 1: plotting samples from the weight prior'
-tags: [jupyter, machine learning concept demo]
+tags: [jupyter, project, machine learning concept demo]
 layout: post
 mathjax: true
-display_image: /assets/2018-01-03-different-w.png
+display_image: 2018-01-03-different-w.png
 ipynb: https://github.com/jessstringham/notebooks/tree/master/2018-01-03-bayesian-linreg.ipynb
 ---
 
@@ -111,4 +111,4 @@ def sample_prior_weights(x_grid, mu_w=0, mu_b=0, sigma_w=0.2, sigma_b=0.2):
 ## See Also
 
  - The [MLPR](http://www.inf.ed.ac.uk/teaching/courses/mlpr/2017/) is lots of fun.
- - [Katarina's post](http://katarinahoeger.com/jekyll/mathematics/2017/12/08/jekyll-supports-math.html) helped me get mathjax in Jekyll!
+ - [Katarina's post](http://katarinahoeger.com/2017/12/08/jekyll-supports-math) helped me get mathjax in Jekyll!

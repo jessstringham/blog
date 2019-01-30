@@ -2,10 +2,9 @@
 title: Pasta machine processing images with numpy
 tags: [python, numpy]
 layout: post
-display_image: /assets/2018-04-08-ex.png
+display_image: 2018-04-08-ex.png
 ---
 
-![Tiled cat image](/assets/2018-04-08-lizzy-header.png)
 Here's a quick blog post to celebrate turning in my last coursework for my master's.
 
 There was this video of using a pasta machine to creatively split an image into four images. It felt like a `numpy` challenge, so I tried to faithfully reproduce it!

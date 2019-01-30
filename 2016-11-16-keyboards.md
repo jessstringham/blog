@@ -80,7 +80,3 @@ now. It's been a trusty companion through many reflections, like about
 how much better I could be at communicating, or about what I was going
 to do about last week.
 
-
-# See Also
-
- - Since I'm divulging my blog motivation, [this might also be why I'm making myself post these](https://www.youtube.com/watch?v=3ResTHKVxf4)

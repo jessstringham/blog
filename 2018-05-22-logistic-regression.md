@@ -1,9 +1,9 @@
 ---
 title: 'Logistic Regression'
-tags: [jupyter, machine learning concept demo]
+tags: [jupyter, project, machine learning concept demo]
 layout: post
 mathjax: true
-display_image: /assets/2018-05-22-fitted-weights.png
+display_image: 2018-05-22-fitted-weights.png
 ipynb: https://github.com/jessstringham/notebooks/tree/master/2018-05-22-logistic-regression.ipynb
 ---
 
@@ -65,7 +65,7 @@ fuzzy_data, fuzzy_labels = get_observations(N)
 ![](/assets/2018-05-22-fuzzy.png)
 
 
-Note: We could also learn this without iterative optimization using [Bayes classifiers](https://github.com/jessstringham/blog/blob/master/notebooks/2018-05-04-ipywidgets-for-learning-logistic-sigmoid-and-bayes-classifiers.ipynb). But these require quadratically more parameters than logistic regression (see Bishop for more info).
+Note: We could also learn this without iterative optimization using [Bayes classifiers](https://github.com/jessstringham/notebooks/blob/master/2018-05-04-ipywidgets-for-learning-logistic-sigmoid-and-bayes-classifiers.ipynb). But these require quadratically more parameters than logistic regression (see Bishop for more info).
 
 ## Logistic sigmoid
 

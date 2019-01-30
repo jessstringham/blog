@@ -96,4 +96,4 @@ I think implementing ML concepts in code is a good way to learn to interpret mat
 ### See Also
 
  - Another way to help learn machine learning concepts are [note-taking]({% post_url 2018-05-06-studying %}) and [interactive widgets]({% post_url 2018-05-04-ipywidgets %})
- - [My machine learning concept demos!](/ml-concepts)
+ - [My machine learning concept demos!]({% link ml-concepts/index.html %})

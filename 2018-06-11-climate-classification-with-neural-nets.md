@@ -1,9 +1,9 @@
 ---
 title: 'Climate classification with neural networks'
-tags: [jupyter, projects]
+tags: [jupyter, project, projects]
 layout: post
 mathjax: true
-display_image: /assets/2018-06-11-ex.png
+display_image: 2018-06-11-us.png
 ipynb: https://github.com/jessstringham/notebooks/tree/master/2018-06-11-climate-classification-with-neural-nets.ipynb
 ---
 

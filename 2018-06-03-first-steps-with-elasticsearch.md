@@ -1,8 +1,8 @@
 ---
-title: First steps with Elasticsearch, searching book catalog
+title: First steps with Elasticsearch, searching a book catalog
 tags: [projects]
 layout: post
-display_image: /assets/2018-06-03-ex.png
+display_image: 2018-06-03-ex.png
 ---
 
 I hacked together a little project to start finding out how much I don't know about Elasticsearch and Lucene.

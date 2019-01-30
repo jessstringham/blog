@@ -1,8 +1,8 @@
 ---
 title: Illustration of an Encoder-Decoder Sequence-to-Sequence neural network
-tags: [ML]
+tags: [ML, project]
 layout: post
-display_image: /assets/2018-12-30-ex1.png
+display_image: 2018-12-30-ex1.png
 ---
 
 In my [master's thesis]({% post_url 2018-12-30-thesis %}), I worked with encoder-decoder sequence-to-sequence neural networks. I'm cross-posting this diagram and description I use to describe seq2seq in the context of lemmatization for a midterm report.

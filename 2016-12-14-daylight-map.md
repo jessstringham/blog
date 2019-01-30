@@ -2,10 +2,8 @@
 title: 'Daylight Project: Part 1, the result'
 tags: [projects]
 layout: post
-display_image: /assets/2016-12-14-ex.png
+display_image: 2016-12-21-daylight.png
 ---
-
-![daylight](/assets/2016-12-21-daylight.png)
 
 I think this is kinda cool: I made a visualization of the length of
 the day in the cities I've been in.

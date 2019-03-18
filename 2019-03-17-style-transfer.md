@@ -381,14 +381,14 @@ In this post, I showed some cool images, but many of the combinations I tried re
 I think there's a reason certain images (Starry Night, The Scream, Tsunami, Picasso) are so common in Neural Style Transfer posts!
 There are a lot of choices in parameters, and the scaling of the image influences the layer detection. It's hard to tell if combinations would turn out better if I had tweaked the parameters right, or if the method wouldn't work. For example, in the example below, some parameters weren't weighted right.
 
-<img width=300px src="/assets/2019-03-17-ghost-church.png">
+![](/assets/2019-03-17-ghost-church.png)
 
 <small>Oh no, the Uppsala cathedral is a ghost. [style](https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/580px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg), [content](https://sv.wikipedia.org/wiki/Uppsala_domkyrka#/media/File:Uppsala_Cathedral_in_February.jpg)</small>
 
 
 Also some of my favorite results didn't really copy the style, but just made a cool looking result (Primordial Chaos, and the Sutro Tower image below).
 
-<img width=180px src="/assets/2019-03-17-sutro.png">
+![](/assets/2019-03-17-sutro.png)
 
 <small>Sutro Tower. [style](https://en.wikipedia.org/wiki/Brussels_International_Exposition_(1897)#/media/File:International_Exhibition_Brussels_par_Privat-Livemont.jpg), [content](https://en.wikipedia.org/wiki/Sutro_Tower#/media/File:Sutro_Tower_from_Grandview.jpg)</small>
 
@@ -405,11 +405,7 @@ I started this post by trying to implement Neural Style Transfer in Keras using 
 My laptop was pretty slow at generating the images, so I used a GPU in [Colaboratory](https://colab.research.google.com).
 
 
-
-
 ### Other posts
-
-There are a few other folks who have looked into ways to make this work better.
 
  - One more time, the [provided Keras example](https://github.com/keras-team/keras/blob/fcf2ed7831185a282895dda193217c2a97e1e41d/examples/neural_style_transfer.py)
  

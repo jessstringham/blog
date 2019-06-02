@@ -112,7 +112,7 @@ Then I concatenate the day to make a bigger vector. I'll pass the station+day ve
 
 ![](/assets/2018-06-11-nn.png)
 
-In the image above, the weather data from U.S. Historical Climatology Network gives me the blue and green boxes. I'm using the blue boxes (station_id and day) as input and the green boxes (precipitation, high temperature, low temperature) as output. As I train the model, backpropagation will find better parameters for the orange boxes (the station vector representations and the neural network.) 
+In the image above, the weather data from U.S. Historical Climatology Network gives me the blue and green boxes. I'm using the left-most boxes (station_id and day) as input and the right-most boxes (precipitation, high temperature, low temperature) as output. As I train the model, back-propagation will find better parameters for the blue boxes (the station vector representations and the neural network.)
 
 When I'm satisfied, I'll take the vector representation and use an unsupervised classifier on it
 I don't particularly care about the neural network learns. I'm just using it to learn the vector representations.
@@ -207,7 +207,7 @@ def save_classification(save_location, trained_embeddings):
     kmeans = KMeans(n_clusters=CLUSTER_NUMBER, random_state=0).fit(trained_embeddings)
 
     with open(save_location, 'w') as f:
-        for station, label in zip(stations, kmeans.labels_):
+        for station, label in zip(list_of_stations, kmeans.labels_):
             f.write('{}\t{}\n'.format(station, label))
 {% endhighlight %}
 

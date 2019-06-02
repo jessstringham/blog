@@ -150,7 +150,7 @@ def create_vgg_layer_outputs(input_tensor):
 
 Let's look inside and see how the network represents the content image. I'll go to various layers and print out what a few features look like.
 
-I'm only printing 3 filters from each layer (for example, `block5_conv1` has 512 filters), so this is just a peak into how the network is representing the image.
+I'm only printing 3 filters from each layer (for example, `block5_conv1` has 512 filters), so this is just a peek into how the network is representing the image.
 
 ![](/assets/2019-03-17-content-convs.png)
 

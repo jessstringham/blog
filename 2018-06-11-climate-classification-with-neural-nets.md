@@ -207,7 +207,7 @@ def save_classification(save_location, trained_embeddings):
     kmeans = KMeans(n_clusters=CLUSTER_NUMBER, random_state=0).fit(trained_embeddings)
 
     with open(save_location, 'w') as f:
-        for station, label in zip(list_of_stations, kmeans.labels_):
+        for station, label in zip(stations, kmeans.labels_):
             f.write('{}\t{}\n'.format(station, label))
 {% endhighlight %}
 

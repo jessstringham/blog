@@ -1,10 +1,10 @@
 ---
-title: Python3.5 type hints
+title: Python 3 type hints with mypy
 tags: [python]
 layout: post
 ---
 
-I was playing with Python3.5's type hints for a few hours, and thought
+I was playing with Python 3's type hints for a few hours, and thought
 I'd summarize what I found here.
 
 A quick disclaimer and blogging note: I have around a dozen unfinished

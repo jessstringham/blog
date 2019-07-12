@@ -1,6 +1,6 @@
 ---
 title: 'Climate classification with Keras'
-tags: [jupyter, project, quick, projects]
+tags: [jupyter, project, quick, keras, deep learning]
 layout: post
 mathjax: true
 display_image: 2019-06-02-ex.png

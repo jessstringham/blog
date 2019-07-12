@@ -1,6 +1,6 @@
 ---
 title: 'Climate classification with neural networks'
-tags: [jupyter, project, projects]
+tags: [jupyter, project, deep learning]
 layout: post
 mathjax: true
 display_image: 2018-06-11-us.png

@@ -1,6 +1,6 @@
 ---
 title: "Interactive Graph: Renewable Resource System Model output"
-tags: [reflection]
+tags: [projects, interactive, quick]
 layout: post
 display_image: 2019-07-10-ex.png
 ---

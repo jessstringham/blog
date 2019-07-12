@@ -1,6 +1,6 @@
 ---
 title: 'Plotting Library Catalog Subjects'
-tags: [jupyter, project, projects]
+tags: [jupyter, project]
 layout: post
 mathjax: true
 display_image: 2018-05-16-ex.png

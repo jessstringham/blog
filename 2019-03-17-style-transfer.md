@@ -1,6 +1,6 @@
 ---
 title: 'Neural style transfer'
-tags: [jupyter, project, quick]
+tags: [jupyter, project, keras, deep learning]
 layout: post
 mathjax: true
 display_image: 2019-03-17-result.png

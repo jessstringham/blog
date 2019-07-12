@@ -1,6 +1,6 @@
 ---
 title: 'Systems Modeling from scratch'
-tags: [jupyter, project, projects]
+tags: [jupyter, project]
 layout: post
 mathjax: true
 display_image: 2019-07-01-ex.png

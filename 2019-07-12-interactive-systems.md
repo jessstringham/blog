@@ -1,5 +1,5 @@
 ---
-title: "Interactive Graph: Renewable Resource System Modeling"
+title: "Interactive Graph: Renewable Resource System Model output"
 tags: [reflection]
 layout: post
 display_image: 2019-07-10-ex.png
@@ -11,7 +11,7 @@ Learning how to produce usable interactive graphics at that quality is going to 
 
 One of the [systems modeling]({% post_url 2019-07-01-systems-modeling-from-scratch %}) examples
 was a system with a renewable resource. Holding everything else in the system, one function, `yield_per_unit_capital_given_resource`, could determine whether the resource stayed stable, oscillated, or dies out.
-Adjust the slider to see different
+Adjust the slider to see the effect.
 
 
 <div id="graph"></div>
@@ -19,9 +19,7 @@ Adjust the slider to see different
 <script src="/assets/js/d3.v5.min.js"></script>
 
 
-
 I produced the underlying data using [this script](https://github.com/jessstringham/notebooks/blob/master/scripts/run_simulation_for_d3.py).
-
 
 
 <style type="text/css">
@@ -52,8 +50,6 @@ I produced the underlying data using [this script](https://github.com/jessstring
 }
 
 </style>
-
-
 
 
 <script>
@@ -149,14 +145,14 @@ function make_all_graphs(data) {
   slider_bar.append('input')
     .attr('type', 'range')
     .attr('id', 'param_selector')
-    .attr('name', 'volume')
+    .attr('name', 'yield_parameter')
     .attr('min', 0)
     .attr('max', data.yield_parameters.length - 1)
     .attr('value', 10)
     .on('click', function() { draw_all(data.yield_parameters[this.value]) });
 
   slider_bar.append('label')
-    .attr('for', 'volume')
+    .attr('for', 'yield_parameter')
     .text('Technological efficiency');
 
   draw_all(0.4473684210526315);

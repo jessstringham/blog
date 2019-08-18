@@ -1,5 +1,5 @@
 ---
-title: "Population Estimation with Mark-Recapture"
+title: "Population Estimation with Mark-Recapture experiments"
 tags: [projects, interactive]
 layout: post
 mathjax: true

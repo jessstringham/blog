@@ -59,8 +59,8 @@ var margin = {top: 50, right: 50, bottom: 50, left: 50}
   , fullwidth = window.innerWidth - margin.left - margin.right // Use the window's width
   , fullheight = 400;
 
-var width = fullwidth / 6;
-var height = fullheight / 3;
+var width = 200;
+var height = 200;
 
 
 function draw_graph(graph, identifier, title) {
@@ -106,6 +106,7 @@ function draw_graph(graph, identifier, title) {
       var line = d3.line()
           .x(function(d, i) { return xScale(graph.xs[i]); })
           .y(function(d) { return yScale(d); })
+
 
       svg.append("path")
           .datum(dataset)

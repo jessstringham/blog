@@ -1,6 +1,6 @@
 ---
 title: "Population Estimation with Mark-Recapture experiments"
-tags: [projects, interactive]
+tags: [project, interactive]
 layout: post
 mathjax: true
 display_image: 2019-08-18-ex.png

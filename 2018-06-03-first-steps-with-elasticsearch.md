@@ -1,6 +1,6 @@
 ---
 title: First steps with Elasticsearch, searching a book catalog
-tags: [projects]
+tags: []
 layout: post
 display_image: 2018-06-03-ex.png
 ---

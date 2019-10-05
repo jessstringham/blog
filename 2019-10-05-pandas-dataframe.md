@@ -2,6 +2,7 @@
 title: What is a Pandas DataFrame?
 tags: [pandas]
 layout: post
+display_image: 2019-10-05-df.png
 ---
 
 I'm reading Jake VanderPlas's ["Python Data Science Handbook"](https://jakevdp.github.io/PythonDataScienceHandbook/index.html).

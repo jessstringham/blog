@@ -1,6 +1,6 @@
 ---
 title: 'Learning Chernoff Faces'
-tags: [jupyter, project]
+tags: [jupyter, project, keras, deep learning, data visualization]
 layout: post
 mathjax: true
 display_image: 2019-11-06-ex.png

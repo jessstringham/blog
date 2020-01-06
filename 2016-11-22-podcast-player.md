@@ -2,6 +2,7 @@
 title: Podcast Player, overview
 tags: [project]
 layout: post
+display_image: 2016-11-22-ex.png
 ---
 
 I've got this stereo that was built before I was born. There's no
